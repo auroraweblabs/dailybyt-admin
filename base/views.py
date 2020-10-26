@@ -1,4 +1,5 @@
 from django.contrib.auth.models import Group
+from django.http.response import HttpResponse
 from apps.accounts.forms import CreateCustomerForm, CreateDeliveryForm
 from apps.accounts.forms import CreateVendorForm, CreateUserForm
 from django.shortcuts import redirect, render
@@ -110,11 +111,17 @@ def user_login(request):
             request, username=phone, password=password)
         if user is not None:
             login(request, user)
+            print(user)
             return redirect('/')
 
     return render(request, 'login.html', {})
 
 
 def logOut(request):
-    logout(request)
-    messages.success(request, f'{request.user} Logged Out!')
+    user = request.user
+    if request.user.is_authenticated:
+        logout(request)
+        messages.success(request, f'{request.user} Logged Out!')
+        return HttpResponse(f"{user} Logged Out Successfully!")
+    else:
+        return HttpResponse("You need to sign in first to log out!")
