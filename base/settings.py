@@ -26,6 +26,13 @@ INSTALLED_APPS = [
     'knox',
     'rest_framework',
     'pwa',
+    'apps.accounts',
+    'apps.chat',
+    'apps.customer',
+    'apps.delivery',
+    'apps.seller',
+    'apps.shop',
+    'apps.service',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +148,5 @@ PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+AUTH_USER_MODEL = 'accounts.User'
