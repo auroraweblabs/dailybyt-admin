@@ -9,7 +9,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 STATICFILES_DIRS = [
     BASE_DIR/'mystatic', ]
 
-SECRET_KEY = 'YOUR AWESOME SECRET KEY HERE'
+SECRET_KEY = 'jchqogoyf0813yf1h3f1h3f1y08fy10313p'
 
 DEBUG = True
 
@@ -62,10 +62,10 @@ WSGI_APPLICATION = 'base.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Your_DB_NAME',
-        'USER': 'Your_DB_USER',
-        'PASSWORD': 'Your_DB_PASSWORD',
-        'HOST': '127.0.0.1', #can be kept as it is. it stands for localhost
+        'NAME': 'django',
+        'USER': 'postgres',
+        'PASSWORD': 'psql',
+        'HOST': '127.0.0.1',
         'PORT': '5432'
     }
 }
