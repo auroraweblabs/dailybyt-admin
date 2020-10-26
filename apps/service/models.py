@@ -92,7 +92,7 @@ class PhoneOTP(models.Model):
 class EmailOTP(models.Model):
     emailregex = RegexValidator(
         regex=r'\w[\w\.-]*@\w[\w\.-]+\.\w+',
-        message="Phone Number Must be entered in Valid Format")
+        message="Email Must be entered in Valid Format")
     email = models.CharField(_('E-mail'), max_length=24,
                              validators=[emailregex], unique=True)
     otp = models.CharField(_('OTP'), max_length=9)
