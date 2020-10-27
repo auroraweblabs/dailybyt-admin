@@ -1,18 +1,19 @@
-from apps.customer.models import Customer
 from django.http import request
 from django.shortcuts import render
 from apps.seller.models import Vendor
-from apps.shop.models import Listing, Order, Product, Tag, UserReview, Payment
-from apps.shop.forms import ListingForm, OrderForm, ProductForm
+from apps.shop.models import Listing, Order, Product, SaleReport, Tag
+from apps.shop.models import UserReview, Payment
+from apps.shop.forms import ListingForm, ProductForm
 from apps.service.models import DeliveryLocation, SupportMessage
 from apps.service.forms import DeliveryLocationForm, SupportMessageForm
 from django.contrib import messages
 
 
 # Exclusive Views for Vendors
-def vendor_home(request, pk):
-    vendor = Vendor.objects.get(id=pk)
+def vendor_home(request):
+    vendor = Vendor.objects.all()
     context = {'vendor': vendor}
+    print(vendor)
     return render(request, 'vendor/home.html', context)
 
 
@@ -94,7 +95,7 @@ def vendor_update_product(request, pk):
 def vendor_list_products(request):
     products = Product.objects.all()
     context = {"products": products}
-    return render(request, 'vendor/add_product.html', context)
+    return render(request, 'vendor/list_product.html', context)
 
 
 def vendor_detail_product(request, pk):
@@ -107,7 +108,7 @@ def vendor_detail_product(request, pk):
         'ptag': ptag,
         'pre': pre
         }
-    return render(request, 'vendor/add_product.html', context)
+    return render(request, 'vendor/detail_product.html', context)
 
 # Shop Views for Vendor - Listing
 
@@ -245,7 +246,7 @@ def vendor_list_payments(request):
 def vendor_detail_payment(request, pk):
     payment = Payment.objects.get(id=pk)
     context = {'payment': payment}
-    return render(request, 'vendor/add_payment.html', context)
+    return render(request, 'vendor/detail_payment.html', context)
 
 
 def vendor_create_support_message(request):
@@ -293,26 +294,37 @@ def vendor_delete_support_message(request, pk):
         else:
             messages.warning(request, "No Such Message")
     context = {'item': item}
-    return render(request, 'vendor/add_support_message.html', context)
+    return render(request, 'vendor/delete_support_message.html', context)
 
 
 def vendor_list_support_messages(request):
     message = SupportMessage.objects.all()
     context = {'messages': message}
-    return render(request, 'vendor/add_support_message.html', context)
+    return render(request, 'vendor/list_support_message.html', context)
 
 
 def vendor_detail_support_message(request, pk):
     message = SupportMessage.objects.get(id=pk)
     context = {'message': message}
-    return render(request, 'vendor/add_support_message.html', context)
+    return render(request, 'vendor/detail_support_message.html', context)
 
 
 def vendor_list_reports(request):
-    context = {}
+    reports = SaleReport.objects.all()
+    context = {'reports': reports}
     return render(request, 'vendor/add_support_message.html', context)
 
 
 def vendor_detail_report(request, pk):
-    context = {}
+    report = SaleReport.objects.get(id=pk)
+    vendor = Vendor.objects.get(id=report.vendor)
+    order = Order.objects.get(id=report.order)
+    products = order.get_cart_items()
+
+    context = {
+        'report': report,
+        'vendor': vendor,
+        'order': order,
+        'products': products,
+    }
     return render(request, 'vendor/add_support_message.html', context)

@@ -231,7 +231,8 @@ class SaleReport(models.Model):
     order = models.ForeignKey("shop.Order", on_delete=models.DO_NOTHING)
     products = models.ManyToManyField("shop.Product")
     value = models.DecimalField(max_digits=10, default=0, decimal_places=2)
-    commission = models.DecimalField(max_digits=10, default=0, decimal_places=2)
+    commission = models.DecimalField(max_digits=10, default=0,
+                                     decimal_places=2)
 
 
 class Payment(models.Model):
