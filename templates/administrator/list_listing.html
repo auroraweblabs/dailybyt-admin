@@ -1,0 +1,56 @@
+{% extends 'administrator/base.html' %}
+
+
+{% block content %}
+<div class="container-fluid" >
+    <div style="margin-left:60px;">
+    
+    <br>    
+    <h2 class="text-center font-bold">All Listings</h2>
+    <hr>
+    {% for message in messages%}
+    <div class="alert alert-primary alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong><i class="fa fa-check-circle-o"></i> {{message}}</strong>
+    </div>
+    {% endfor %}
+    <a class="btn btn-black btn-lg btn-block" href="{% url 'admin_create_listing'%}"><i class="fa fa-plus"></i> Add Listing</a>
+    <br>
+    <div class="table-responsive justify-content-center">
+        <table class="table table-bordered m-2 mx-auto justify-content-center" id="listing_table" >
+            <thead class="table-thead text-center">
+                <th>Id</th>
+                <th>Item</th>
+                <th>Store</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </thead>
+            <tbody class="text-center">
+                {% for item in listings %}
+                <tr>
+                    <td><h5>{{item.id}}</h5></td>
+                    <td><h5>{{item}}</h5></td>
+                    <td><h5>{{item.store}}</h5></td>
+                    <td><h5>{{item.price}}</h5></td>
+                    <td class="justify-content-center">
+                        <a class="btn btn-warning mr-sm-2 mb-sm-1 justify-content-center" href="{% url 'admin_update_listing' item.id %}"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-danger mr-sm-2 mb-sm-1 justify-content-center" href="{% url 'admin_delete_listing' item.id %}"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <br>
+    </div>
+</div>
+   
+{% endblock content %}
+{% block extrajs %}
+<script>
+    $(document).ready( function () {
+$('#listing_table').DataTable();
+} );
+</script>
+{% endblock extrajs %}

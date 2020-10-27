@@ -1,0 +1,27 @@
+{% extends 'administrator/base.html' %}
+{% load crispy_forms_tags%}
+{% block title %}
+    Editing Tag - {{tag}}
+{% endblock title %}
+
+
+{% block content %}
+<div class="container-fluid" >
+    <div style="margin-left:60px;">
+        <br>
+    <div class="container border shadow rounded">
+        <br>
+        <h1 class="text-center">Editing Tag - {{tag}}</h1>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input class="btn btn-lg btn-block btn-black" type="submit" value="Save Changes To Tag {{tag}}">
+        </form>
+        <br>
+    </div>
+    <br>
+    </div>
+</div>
+{% endblock content %}
+    

@@ -1,0 +1,23 @@
+{% extends 'administrator/base.html'%}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid" >
+    <div style="margin-left:60px;">
+        <br>
+    <div class="container border shadow rounded">
+        <br>
+        <h1 class="text-center"> Hello {{username}}
+            {% for message in messages %}
+            {{message}}
+            {% endfor %}</h1>
+        <br>
+        
+        <br>
+    </div>
+    <br>
+    </div>
+</div>
+   
+{% endblock content %}
+    

@@ -1,0 +1,62 @@
+{% extends 'administrator/base.html' %}
+
+
+{% block title %}
+    List Vendors
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="container-fluid" >
+    <div style="margin-left:60px;">
+        
+    <br>    
+    <h2 class="text-center font-bold">All Vendors</h2>
+    <hr>
+    {% for message in messages%}
+        <div class="alert alert-primary alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong><i class="fa fa-check-circle-o"></i> {{message}}</strong>
+        </div>
+        {% endfor %}
+    <a class="btn btn-black btn-lg btn-block" href="{% url 'admin_create_vendor'%}"><i class="fa fa-plus"></i> Add Vendor</a>
+    <br>
+    <div class="table-responsive justify-content-center">
+        <table class="table table-bordered m-2 mx-auto justify-content-center" id="vendor_table" >
+            <thead class="table-thead text-center">
+                <th>Id</th>
+                <th>Business Name</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </thead>
+            <tbody class="text-center">
+                {% for vendor in vendors %}
+                <tr>
+                    <td><h5>{{vendor.id}}</h5></td>
+                    <td><h5><a href=" {% url 'admin_detail_vendor' vendor.id %} ">{{vendor}}</a></h5></td>
+                    <td><h5>{{vendor.user.name}}</h5></td>
+                    <td><h5>{{vendor.user.email}}</h5></td>
+                    <td class="justify-content-center">
+                        <a class="btn btn-warning mr-sm-2 mb-sm-1 justify-content-center" href="{% url 'admin_update_vendor' vendor.id %}"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-danger mr-sm-2 mb-sm-1 justify-content-center" href="{% url 'admin_delete_vendor' vendor.id %}"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <br>
+    </div>
+</div>
+{% endblock content %}
+{% block extrajs %}
+    <script>
+        $(document).ready( function () {
+    $('#vendor_table').DataTable();
+} );
+    </script>
+{% endblock extrajs %}
+    

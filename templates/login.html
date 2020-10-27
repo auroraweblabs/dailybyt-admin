@@ -1,19 +1,79 @@
-{% extends 'base.html' %}
+{% extends 'userbase.html' %}
+{% load static %}
 
 
 {% block title %}
-    Login
+DailyByt - Login
 {% endblock title %}
-    
+
+{% block extracss %}
+<link rel="stylesheet" href="{% static 'css/mi.css' %}">
+{% endblock extracss %}
 
 
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        <input class="mi-input" type="number" name="phone" id="inputEmail" placeholder="Mobile Number">
+<div class="mi-content mi-container mi-green">
+
+  <header>
+    <!-- Header goes here-->
+  </header>
+
+  <!-- Main Content-->
+
+  <div class="mi-row">
+
+    <div class="mi-col s6">
+      <h1 class="mi-hide-small mi-margin-top">Let's Start</h1>
+      <h3 class="mi-hide-large mi-hide-medium mi-margin-top">Let's Start</h3>
+    </div>
+    <div class="mi-col s6">
+      <img class="mi-right mi-card mi-margin-small mi-round" src="{% static 'images/page2.png' %}" alt="box">
+    </div>
+  </div>
+  
+
+  <div class="mi-container-round mi-white">
+    {% for message in messages  %}
+    <p class="mi-text-dark-grey">{{message}}</p>
+    {% endfor %}
+    <form class="mi-container" method="post">
+      {% csrf_token %}
+
+      <p>
+        <input class="mi-input" type="number" name="phone" id="inputEmail" placeholder="Mobile Number"></p>
+      <p>
         <input class="mi-input" id="inputPassword" name="password" placeholder="Password" type="password" required>
+      </p>
+
+      <!--Forgot Password-->
+
+      <p class="mi-tiny">Forgot Password?</p>
+
+      <div class="mi-container mi-center">
         <input class="mi-button mi-hover-green mi-round-xxlarge mi-lime mi-padding-large mi-card-4" type="submit" value="Sign In">
-    </form>    
+      </div>
+    </form>
+
+    <div class="mi-container mi-padding-32 mi-center">
+      <h4>Register as seller</h4>
+      <br>
+      <h5>Sign Up</h5>
+    </div>
+    <p class="mi-small">By signing in you agree to Dailybyt's <span class="mi-text-indigo">Terms of Use</span> and <span
+        class="mi-text-indigo">Privacy Policy</span></p>
+  </div>
+  <!-- Main Content End-->
+
+  <footer>
+    <!-- Footer goes here---->
+  </footer>
+
+</div>
+
+
+
+
+<!---->
+
 
 {% endblock content %}
-    

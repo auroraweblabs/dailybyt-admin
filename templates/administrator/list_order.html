@@ -1,0 +1,49 @@
+{% extends 'administrator/base.html' %}
+{% block title %}
+    List Orders
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="container-fluid" >
+    <div style="margin-left:60px;">
+    
+    <br>    
+    <h2 class="text-center font-bold">All Orders</h2>
+    <hr>
+    <div class="table-responsive justify-content-center">
+        <table class="table table-bordered m-2 mx-auto justify-content-center" id="order_table" >
+            <thead class="table-thead text-center">
+                <th>Id</th>
+                <th>Details</th>
+                <th>Customer Id</th>
+                <th>Customer Name</th>
+                
+            </thead>
+            <tbody class="text-center">
+                {% for order in orders %}
+                <tr>
+                    <td><h5>{{order.id}}</h5></td>
+                    <td><h5><a href=" {% url 'admin_detail_order' order.id %} ">Details Of Order {{order}}</a></h5></td>
+                    <td><h5>{{order.customer.user.id}}</h5></td>
+                    <td><h5>{{order.customer.user.name}}</h5></td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <br>
+    </div>
+</div>
+    
+{% endblock content %}
+{% block extrajs %}
+<script>
+    $(document).ready( function () {
+$('#order_table').DataTable();
+} );
+</script>
+{% endblock extrajs %}    

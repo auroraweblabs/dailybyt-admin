@@ -1,0 +1,129 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block title %}
+   Product Details
+{% endblock title %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{{ static 'css/detail_product.css' }">
+    <style>
+      .carousel-inner img {
+    width: 100%;
+    height: 100%;
+  }
+  .cap{
+    border-radius: 20px;
+  }
+    </style>
+{% endblock extracss %}
+    
+
+
+{% block content %}
+<div class="container-fluid">
+    <div style="margin-left: 60px;">
+      <br>
+      <div class="container">
+        <div class="row border shadow my-auto mx-auto">
+            <div class="col-lg-6">
+              <br>
+              <div class="container">
+                <div id="myCarousel" class="carousel slide p-2 border" data-ride="carousel">
+                    <ul class="carousel-indicators">
+                      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                      <li data-target="#myCarousel" data-slide-to="1"></li>
+                      <li data-target="#myCarousel" data-slide-to="2"></li>
+                      <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ul>
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src="{% static 'images/profile.png' %}" alt="Product-image-1" class="img-responsive">
+                        <div class="carousel-caption">
+                          <h3 class="bg-light text-dark cap">Image 1</h3>
+                        </div>   
+                      </div>
+                      <div class="carousel-item">
+                        <img src="{% static 'images/profile.png' %}" alt="Product-image-2" class="img-responsive">
+                        <div class="carousel-caption">
+                          <h3 class="bg-light text-dark cap">Image 2</h3>
+                        </div>   
+                      </div>
+                      <div class="carousel-item">
+                        <img src="{% static 'images/profile.png' %}" alt="Product-image-3" class="img-responsive">
+                        <div class="carousel-caption">
+                          <h3 class="bg-light text-dark cap">Image 3</h3>
+                        </div>   
+                      </div>
+                      <div class="carousel-item">
+                        <img src="{% static 'images/profile.png' %}" alt="Product-image-4" class="img-responsive">
+                        <div class="carousel-caption">
+                          <h3 class="bg-light text-dark cap">Image 4</h3>
+                        </div>   
+                      </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+                      <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+                      <span class="carousel-control-next-icon"></span>
+                    </a>
+                  </div>
+                  <br>
+              </div>
+              <br>
+            </div>
+            <div class="col-lg-6">
+              <br>
+              <div class="container-fluid mt-lg-3">
+                
+                <h2 class="text-center">Details Of Product : {{product}}</h2>
+                <br>
+                <h3 class="text-center">Category: {{product.category}}</h3>
+                <h3 class="text-center">Sub Category: {{product.subcategory}}</h3>
+                <br>
+                <h4 class="text-center">Description: {{product.description}}</h4>
+                <h3 class="text-center">Price: &#8377; {{product.price}}</h3>
+                <h4 class="text-center">Product Added On {{product.added_on}}</h4>
+                <br>
+                <h3 class="text-center">Reviews:</h3>
+                <div class="d-flex flex-wrap align-content-center text-center mx-auto">
+              
+                  {% for review in pre%}
+             
+                  <h5 class="btn-black mb-1 d-flex p-2 text-center" style="border-radius: 10px;">
+                   {{review}}
+                  </h5>
+                 &nbsp;
+                 {% endfor%}
+   
+                 </div>
+                </div>
+                <br>
+            </div>
+            <br>
+            <h3 class="text-center justify-content-center pl-4">Tags:&nbsp;</h3> 
+            
+            <div class="container-fluid mx-auto d-block">
+            <div class="d-flex flex-wrap align-content-center text-center mx-auto">
+              
+               {% for tag in ptag%}
+          
+               <h5 class="btn-black mb-1 d-flex p-2 text-center" style="border-radius: 10px;">
+                {{tag}}
+               </h5>
+              &nbsp;
+              {% endfor%}
+
+              </div>
+            </div>
+              <br><br><br>
+            </div>
+            
+        </div>
+        <br>
+        </div>
+    </div>
+</div>
+   
+{% endblock content %}
+    

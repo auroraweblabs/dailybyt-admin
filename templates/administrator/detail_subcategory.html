@@ -1,0 +1,49 @@
+{% extends 'administrator/base.html' %}
+
+
+{% block title %}
+    Details Of Subcategory - {{categories}}
+{% endblock title %}
+
+
+
+{% block content %}
+<br>
+<div class="container-fluid" >
+    <div style="margin-left:60px;">
+        <br>
+    <div class="container border shadow rounded">
+        
+        <div class="jumbotron my-auto mx-auto">
+            <br>
+        
+        <h1 class="text-center">Details of Sub Category <strong>{{categories}}</strong></h1>
+            <br>
+            <h3 class="text-center">Sub Category Id : {{categories.id}}</h3>
+            <h3 class="text-center">Sub Category Parent : {{categories.parent}}</h3>
+            <h3 class="text-center">Description : {{categories.description}}</h3>
+            
+            
+            <div class="d-flex flex-wrap align-content-center text-center mx-auto">
+                    <h3 class="text-center">Tags :&nbsp;</h3>
+                  {% for tag in tags %}
+             
+                  <h5 class="btn-black mb-1 d-flex p-2 text-center" style="border-radius: 10px;">
+                   {{tag}}
+                  </h5>
+                 &nbsp;
+                 {% endfor%}
+   
+                 </div>
+                
+        </div>
+        
+    </div>
+    <br>
+    </div>
+</div>
+<br>
+
+   
+{% endblock content %}
+    

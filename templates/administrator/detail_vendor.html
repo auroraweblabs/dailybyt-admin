@@ -1,0 +1,52 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% block title %}
+    Detail Vendors
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="container-fluid">
+    <div style="margin-left: 60px;">
+      <br>
+      <div class="container-fluid">
+          <br>
+         <div class="row">
+             <div class="col-lg-6">
+                 <div class="container mx-auto ">
+                 <img src="{% static 'images/profile.png' %}" class="img-fluid mx-auto d-block rounded-circle border shadow">
+                 </div>
+             </div>
+             <div class="col-lg-6">
+                 <div class="container-fluid text-center border shadow " style="border-radius: 20px;">
+                     <br><br>
+                     {% if vendor.user.is_active %}
+                    <h2 class="bg-success p-2"  style="border-radius: 20px;">
+                        <i class="fa fa-check-circle"></i> ACTIVE
+                    </h2>
+                    {% else %}
+                    <h2 class="bg-danger mx-4 p-2" style="border-radius: 20px;">
+                        <i class="fa fa-times-circle"></i> INACTIVE
+                    </h2>
+                    {% endif%}
+                    <br>
+                    <h1 class="text-center">Business Name : {{vendor.buisness_name}} </h1>
+                    <h2 class="text-center">Business Pan : {{vendor.company_pan}}</h2>
+                    <h2 class="text-center">Email Id : {{vendor.user.email}}</h2>
+                    <h2 class="text-center">Name : {{vendor.user.name}} {{vendor.user.lname}}</h2>    
+                    <h2 class="text-center">Address : {{vendor.user.address}}, {{vendor.user.city}} - {{vendor.user.pincode}}, {{vendor.user.state}}, {{vendor.user.country}}</h2>
+                    <h2 class="text-center">Contact Number : {{vendor.user.contact_number}}</h2>
+                    <h2 class="text-center">Aadhar Number : {{vendor.user.aadhar_number}}</h2>
+                    <br>
+                    <br>
+                 </div>
+             </div>
+         </div>
+      </div>
+      <br>
+    </div>  
+</div>
+   
+{% endblock content %}
+    

@@ -1,5 +1,4 @@
 {
-    "python.pythonPath": "/home/cosmo/.envs/test/bin/python",
-    "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true
+    "python.pythonPath": "/home/hrishi/Newrr/env/bin/python3.8",
+   
 }

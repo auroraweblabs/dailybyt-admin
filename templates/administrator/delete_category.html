@@ -1,0 +1,45 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+
+{% block title %}
+    Deleting Inventory {{item}}
+{% endblock title %}
+
+
+{% block content %}
+<br><br><br>
+<div class="container-fluid" >
+    <div style="margin-left:60px;">
+        <br>
+    <div class="container border shadow rounded">
+        <br>
+        <div class="jumbotron my-auto mx-auto">
+        <h1 class="text-center">Are you sure you want to Delete Category <strong>{{item}}<strong>?</h1>
+            <br>
+        <form method="POST" class="justify-content-center">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-6">
+                    <a class="btn btn-lg btn-block btn-black justify-content-center text-light "  href=" {% url 'admin_list_category' %} "><i class="fa fa-times"></i> Cancel</a>
+                </div>
+                <div class="col-sm-6">
+                    <input class="btn btn-danger btn-lg btn-block justify-content-center" href = "{% url 'admin_delete_category' item.pk %}" type="submit" name="Confirm">
+                </div>
+            </div>
+            
+           
+            
+        </form>
+        </div>
+        <br>
+    </div>
+    <br>
+    </div>
+</div>
+
+
+    <br>
+    <br>
+    <br>
+{% endblock content %}
+    

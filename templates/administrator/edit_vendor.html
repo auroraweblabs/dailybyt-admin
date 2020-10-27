@@ -1,0 +1,30 @@
+{% extends 'administrator/base.html' %}
+{% load crispy_forms_tags%}
+
+{% block title %}
+    Editing Vendor - {{vendor}}
+{% endblock title %}
+    
+
+
+{% block content %}
+<div class="container-fluid" >
+    <div style="margin-left:60px;">
+        <br>
+    <div class="container border shadow rounded">
+        <br>
+        <h1 class="text-center">Editing Vendor - {{vendor}}</h1>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input class="btn btn-lg btn-block btn-black" type="submit" value="Update Vendor {{vendor}}">
+        </form>
+        <br>
+    </div>
+    <br>
+    </div>
+</div>
+    
+{% endblock content %}
+    

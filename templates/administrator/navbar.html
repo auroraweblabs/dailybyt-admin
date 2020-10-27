@@ -1,0 +1,132 @@
+{% load static %}
+{% if user.is_authenticated %}
+<nav class="main-menu">
+    <!--<div class="container-fluid mt-1">
+        <img class="img-fluid mx-auto d-block bg-light" style="max-width: 50%;" src="{% static 'images/logo.png' %}">
+    </div>-->
+    <ul>
+        <li>
+            <a>
+               
+                    <i class="fa fa-mainmenu fa-user fa-2x"></i>    
+               
+                <span class="nav-text text-light font-weight-bolder"  style="color:rgb(104, 230, 72);font-size: 1rem;">
+                    DailyByt admin
+                </span>
+            </a>
+          
+        </li>
+        <li>
+            <a href="{% url 'admin_home'%}">
+                <i class="fa fa-mainmenu fa-home fa-2x"></i>
+                <span class="nav-text">
+                    Dashboard
+                </span>
+            </a>
+          
+        </li>
+        <li class="has-subnav">
+            <a href="{% url 'admin_list_product'%}">
+                <i class="fa fa-mainmenu fa-product-hunt fa-2x"></i>
+                <span class="nav-text">
+                   Products
+                </span>
+            </a>
+            
+        </li>
+        <!--<li class="has-subnav">
+            <a href="">
+               <i class="fa fa-mainmenu fa-list fa-2x"></i>
+                <span class="nav-text">
+                    Inventories
+                </span>
+            </a>
+            
+        </li>-->
+        <li class="has-subnav">
+            <a href="{% url 'admin_list_vendor'%}">
+               <i class="fa fa-mainmenu fa-users fa-2x"></i>
+                <span class="nav-text">
+                    Vendors
+                </span>
+            </a>
+           
+        </li>
+        <li>
+            <a href="{% url 'admin_list_category'%}">
+                <i class="fa fa-mainmenu fa-server fa-2x"></i>
+                <span class="nav-text">
+                    Categories
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'admin_list_subcategory'%}">
+                <i class="fa fa-mainmenu fa-code-fork fa-2x"></i>
+                <span class="nav-text">
+                   Subcategories
+                </span>
+            </a>
+        </li>
+        <li>
+           <a href="{% url 'admin_list_tag'%}">
+               <i class="fa fa-mainmenu fa-tags fa-2x"></i>
+                <span class="nav-text">
+                    Tags
+                </span>
+            </a>
+        </li>
+        <li>
+           <a href="">
+                <i class="fa fa-mainmenu fa-list-ol fa-2x"></i>
+                <span class="nav-text">
+                    Listings
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="">
+                 <i class="fa fa-mainmenu fa-map-marker fa-2x"></i>
+                 <span class="nav-text">
+                     Locations
+                 </span>
+             </a>
+         </li>
+        <li>
+            <a href="">
+                 <i class="fa fa-mainmenu fa-shopping-basket fa-2x"></i>
+                 <span class="nav-text">
+                     Orders
+                 </span>
+             </a>
+         </li>
+         <li>
+            <a href="">
+                 <i class="fa fa-mainmenu fa-money fa-2x"></i>
+                 <span class="nav-text">
+                     Payments
+                 </span>
+             </a>
+         </li>
+         <li>
+            <a href="">
+                 <i class="fa fa-mainmenu fa-comments-o fa-2x"></i>
+                 <span class="nav-text">
+                     Messages
+                 </span>
+             </a>
+         </li>
+    </ul> 
+
+    <ul class="logout">
+        <li>
+           <a href="{% url 'logout' %}">
+                 <i class="fa fa-mainmenu fa-power-off fa-2x"></i>
+                <span class="nav-text">
+                    Logout
+                </span>
+            </a>
+        </li>  
+    </ul>
+</nav>
+{% endif %}

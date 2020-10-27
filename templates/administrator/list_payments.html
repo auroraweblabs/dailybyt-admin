@@ -1,0 +1,55 @@
+{% extends 'administrator/base.html' %}
+
+{% block title %}
+    List Payments
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="container-fluid" >
+    <div style="margin-left:60px;">
+    
+    <br>    
+    <h2 class="text-center font-bold">All Payments</h2>
+    <hr>
+    <div class="table-responsive justify-content-center">
+        <table class="table table-bordered m-2 mx-auto justify-content-center" id="payment_table" >
+            <thead class="table-thead text-center">
+                <th>Id</th>
+                <th>Order Id</th>
+                <th>Delivered</th>
+                
+            </thead>
+            <tbody class="text-center">
+                {% for payment in payments %}
+                <tr>
+                    <td><h5><a href=" {% url 'admin_detail_payment' payment.id %} ">{{payment}}</a></h5></td>
+                    <td><h5><a href=" {% url 'admin_detail_order' payment.order.id %} ">{{payment.order.id}}</a></h5></td>
+                    <td><h5>
+                        {% if payment.delivered %}
+                        <div class="btn container-fluid text-center rounded bg-success" style="max-width:100px;"><i class="fa fa-check"></i><br>Delivered</div>
+                        {% else %}
+                        <div class="btn container-fluid text-center rounded bg-danger" style="max-width:100px;"><i class="fa fa-check"></i><br>Not Delivered</div>
+                        {% endif %}
+                    </h5></td>
+                    
+                   
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <br>
+    </div>
+</div>
+    
+{% endblock content %}
+{% block extrajs %}
+    <script>
+        $(document).ready( function () {
+    $('#payment_table').DataTable();
+} );
+    </script>
+{% endblock extrajs %}    

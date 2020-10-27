@@ -111,9 +111,14 @@ def user_login(request):
             request, username=phone, password=password)
         if user is not None:
             login(request, user)
-            print(user)
-            return redirect('/')
-
+            if request.user.groups.filter(name__in=['admin']).exists():
+                return redirect('admin_home')
+            elif request.user.groups.filter(name__in=['vendor']).exists():
+                return redirect('vendor_home')
+            elif request.user.groups.filter(name__in=['delivery']).exists():
+                return redirect('delivery_home')
+            elif request.user.groups.filter(name__in=['customer']).exists():
+                return redirect('home')
     return render(request, 'login.html', {})
 
 

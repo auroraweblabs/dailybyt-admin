@@ -1,0 +1,34 @@
+{% extends 'administrator/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Vendor - Register
+{% endblock title %}
+
+
+{% block extracss %}
+
+<link rel="stylesheet" href="{% static 'css/accounts/vendor_register.css' %}">
+{% endblock extracss %}
+
+
+{% block content %}
+<div class="container-fluid" >
+    <div style="margin-left:60px;">
+        <br>
+    <div class="container border shadow rounded">
+        <br>
+        <h1 class="text-center">Create Vendor</h1>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input class="btn btn-lg btn-block btn-black" type="submit" value="Create Vendor">
+        </form>
+        <br>
+    </div>
+    <br>
+    </div>
+</div>
+{% endblock content %}

@@ -8,18 +8,27 @@
     {% block title %}
         
     {% endblock title %}
-    </title>
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</title>
+    {% block basecss %}{% endblock basecss %}
+    {% block extracss %}{% endblock extracss %}
+            
+    
+    
 </head>
 <body>
-    {%block header%}  
-    {%endblock header%}
+    {%block nav%}  
+    {%endblock nav%}
     
     {%block content%} 
     {%endblock content%}
     
     {%block footer%}  
     {%endblock footer%}
-    <script src="{% static 'js/base.js' %}"></script>
+    
+    {% block basejs %}{% endblock basejs %}
+    
+    {% block extrajs %}{% endblock extrajs %}
+        
+        
 </body>
 </html>
