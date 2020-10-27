@@ -168,16 +168,19 @@ class Order(models.Model):
     delivery_status = models.BooleanField(
         default=False, verbose_name="Delivered/Not ?")
 
+    @staticmethod
     def get_cart_items(self):
         orderitems = self.orderitem_set.all()
         total = sum[(item.quantity for item in orderitems)]
         return total
 
+    @staticmethod
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
         total = sum[(item.get_total for item in orderitems)]
         return total
 
+    @staticmethod
     def get_total_commission(self):
         orderitems = self.orderitems_set.all()
         com = 0
@@ -186,14 +189,17 @@ class Order(models.Model):
                 ((item.product.category.commission) / 100)
         return com
 
+    @staticmethod
     def get_gst(self):
         gst = self.get_total_commission() * (0.18)
         return gst
 
+    @staticmethod
     def vendor_amount(self):
         total = self.get_cart_total - self.get_total_commission - self.get_gst
         return total
 
+    @staticmethod
     def get_ready_orders(self):
         orderitems = self.orderitem.set.all()
         orderitems.filter(payment_status=True, delivery_status=False)
@@ -211,10 +217,21 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return str(self.product)
+
     @staticmethod
     def get_total(self):
         total = self.product.price * self.quantity
         return total
+
+
+class SaleReport(models.Model):
+    vendor = models.ForeignKey("seller.Vendor", on_delete=models.DO_NOTHING)
+    order = models.ForeignKey("shop.Order", on_delete=models.DO_NOTHING)
+    products = models.ManyToManyField("shop.Product")
+    value = models.DecimalField(max_digits=10, default=0, decimal_places=2)
+    commission = models.DecimalField(max_digits=10, default=0, decimal_places=2)
 
 
 class Payment(models.Model):

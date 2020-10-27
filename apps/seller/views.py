@@ -1,8 +1,9 @@
+from apps.customer.models import Customer
 from django.http import request
 from django.shortcuts import render
 from apps.seller.models import Vendor
-from apps.shop.models import Listing, Product, Tag, UserReview, Payment
-from apps.shop.forms import ListingForm, ProductForm
+from apps.shop.models import Listing, Order, Product, Tag, UserReview, Payment
+from apps.shop.forms import ListingForm, OrderForm, ProductForm
 from apps.service.models import DeliveryLocation, SupportMessage
 from apps.service.forms import DeliveryLocationForm, SupportMessageForm
 from django.contrib import messages
@@ -214,18 +215,24 @@ def vendor_detail_location(request, pk):
     return render(request, 'vendor/detail_location.html', context)
 
 
-def vendor_update_order(request, pk):
-    context = {}
-    return render(request, 'vendor/update_order.html', context)
-
-
 def vendor_list_orders(request):
-    context = {}
+    orders = Order.objects.all()
+    context = {'orders': orders}
     return render(request, 'vendor/list_order.html', context)
 
 
 def vendor_detail_order(request, pk):
-    context = {}
+    order = Order.objects.get(id=pk)
+    products = order.get_cart_items()
+    cart_total = order.get_cart_total()
+    commission = order.get_total_commission()
+    context = {
+        'order': order,
+        'products': products,
+        'cart_total': cart_total,
+        'commission': commission
+
+    }
     return render(request, 'vendor/detail_order.html', context)
 
 
@@ -290,12 +297,14 @@ def vendor_delete_support_message(request, pk):
 
 
 def vendor_list_support_messages(request):
-    context = {}
+    message = SupportMessage.objects.all()
+    context = {'messages': message}
     return render(request, 'vendor/add_support_message.html', context)
 
 
 def vendor_detail_support_message(request, pk):
-    context = {}
+    message = SupportMessage.objects.get(id=pk)
+    context = {'message': message}
     return render(request, 'vendor/add_support_message.html', context)
 
 
