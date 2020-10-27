@@ -6,13 +6,13 @@ from .models import DeliveryLocation, PhoneOTP, EmailOTP
 class StateForm(forms.ModelForm):
     class Meta:
         model = State
-        fields = ('name')
+        fields = ('name',)
 
 
 class CityForm(forms.ModelForm):
     class Meta:
         model = City
-        fields = ('name')
+        fields = ('name',)
 
 
 class PinCodeForm(forms.ModelForm):

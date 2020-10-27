@@ -1,8 +1,7 @@
 # from django.urls.conf import include
-from apps.admin.views import admin_home
 from base.views import home, registerCustomer, registerDelivery
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import user_login, logOut, registerAdmin, registerVendor
@@ -17,7 +16,7 @@ urlpatterns = [
     path('registerCustomer/', registerCustomer, name='register-customer'),
     path('registerDelivery/', registerDelivery, name='register-delivery'),
     path('logout/', logOut, name="logout"),
-    path('administration/', admin_home, name="admin_home")
+    path('administration/', include('apps.admin.urls'))
     # path('accounts/', include('apps.accounts.urls'))
 ]
 

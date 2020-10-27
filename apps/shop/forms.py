@@ -7,10 +7,12 @@ from .models import Payment
 class TagForm(forms.ModelForm):
     class Meta:
         model = Tag
-        fields = '__all__'
+        fields = (
+            'name',
+        )
 
 
-class CaetgoryForm(forms.ModelForm):
+class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = '__all__'

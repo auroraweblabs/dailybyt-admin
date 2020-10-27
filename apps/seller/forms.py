@@ -5,4 +5,4 @@ from .models import Vendor
 class VendorForm(forms.ModelForm):
     class Meta:
         model = Vendor
-        fields = '_all_'
+        fields = '__all__'

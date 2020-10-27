@@ -14,7 +14,10 @@ class Vendor(models.Model):
                                      max_length=12, blank=True)
     gst_number = models.CharField(verbose_name="GST Number",
                                   max_length=15, blank=True)
-    bank_account = models.ForeignKey(BankAccount, on_delete=models.CASCADE)
+    bank_account = models.ForeignKey(BankAccount,
+                                     on_delete=models.CASCADE,
+                                     blank=True,
+                                     null=True)
     service_areas = models.ManyToManyField(DeliveryLocation, blank=True)
     address = models.ForeignKey(Address, verbose_name='Address',
                                 on_delete=models.CASCADE,
