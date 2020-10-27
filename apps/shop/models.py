@@ -1,7 +1,4 @@
 from django.db import models
-from apps.customer.models import Customer
-from apps.seller.models import Vendor
-from apps.delivery.models import Delivery
 
 
 class UserReview(models.Model):
@@ -45,7 +42,7 @@ class Category(models.Model):
     commission = models.DecimalField(
         max_digits=5, decimal_places=2, null=True)
     is_digital = models.BooleanField(default=False)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField("shop.Tag")
 
     @staticmethod
     def get_all_categories():
@@ -66,7 +63,8 @@ class Category(models.Model):
 
 class SubCategory(models.Model):
     name = models.CharField(max_length=100, null=True)
-    parent = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    parent = models.ForeignKey("shop.Category", on_delete=models.SET_NULL,
+                               null=True)
     description = models.CharField(max_length=100, null=True, blank=True)
     tags = models.ManyToManyField(Tag)
 
@@ -96,11 +94,11 @@ class Product(models.Model):
     image4 = models.ImageField(
         upload_to='productImages/', null=True, blank=True)
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, null=True)
+        "shop.Category", on_delete=models.CASCADE, null=True)
     subcategory = models.ForeignKey(
-        SubCategory, on_delete=models.CASCADE, null=True)
-    tags = models.ManyToManyField(Tag)
-    reviews = models.ManyToManyField(UserReview, blank=True)
+        "shop.SubCategory", on_delete=models.CASCADE, null=True)
+    tags = models.ManyToManyField("shop.Tag")
+    reviews = models.ManyToManyField("shop.UserReview", blank=True)
 
     @staticmethod
     def get_products_by_id(ids):
@@ -130,8 +128,8 @@ class Product(models.Model):
 
 class Listing(models.Model):
 
-    vendor = models.ForeignKey(Vendor, on_delete=models.DO_NOTHING)
-    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    vendor = models.ForeignKey("seller.Vendor", on_delete=models.DO_NOTHING)
+    product = models.ForeignKey("shop.Product", on_delete=models.DO_NOTHING)
     quantity = models.DecimalField(verbose_name="Quantity",
                                    decimal_places=0, max_digits=10)
     price = models.FloatField(verbose_name="Listing Price")
@@ -159,9 +157,11 @@ class Listing(models.Model):
 
 class Order(models.Model):
 
-    customer = models.ForeignKey(Customer, on_delete=models.DO_NOTHING)
-    products = models.ManyToManyField(Listing)
-    delivery = models.ForeignKey(Delivery, on_delete=models.DO_NOTHING)
+    customer = models.ForeignKey("customer.Customer",
+                                 on_delete=models.DO_NOTHING)
+    products = models.ManyToManyField("shop.Listing")
+    delivery = models.ForeignKey("delivery.Delivery",
+                                 on_delete=models.DO_NOTHING)
     value = models.FloatField()
     payment_status = models.BooleanField(
         default=False, verbose_name="Paid/Unpaid ?")
@@ -204,8 +204,10 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
 
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey("shop.Product", on_delete=models.SET_NULL,
+                                null=True)
+    order = models.ForeignKey("shop.Order", on_delete=models.SET_NULL,
+                              null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
@@ -222,6 +224,7 @@ class Payment(models.Model):
         ('unpaid', 'Unpaid'),
         ('cod', 'cod'),
     )
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey("shop.Order", on_delete=models.SET_NULL,
+                              null=True)
     status = models.CharField(max_length=40, choices=choices)
     delivered = models.BooleanField(default=False)

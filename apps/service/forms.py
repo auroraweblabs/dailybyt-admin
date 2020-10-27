@@ -1,5 +1,5 @@
 from django import forms
-from .models import State, City, PinCode, Address, BankAccount
+from .models import State, City, PinCode, Address, BankAccount, SupportMessage
 from .models import DeliveryLocation, PhoneOTP, EmailOTP
 
 
@@ -72,3 +72,11 @@ class EmailOTPForm(forms.ModelForm):
         fields = (
             'email',
             'otp')
+
+
+class SupportMessageForm(forms.ModelForm):
+    class Meta:
+        model = SupportMessage
+        fields = (
+            'vendor',
+            'message')

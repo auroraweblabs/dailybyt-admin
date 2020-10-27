@@ -62,13 +62,18 @@ def admin_update_vendor(request, pk):
 
 
 def admin_delete_vendor(request, pk):
-    if request.method == 'POST':
-        vendor = Vendor.objects.get(id=pk)
-        name = vendor.buisness_name
-        vendor.delete()
-        messages.success(request, f'{name} Deleted!')
-
     vendor = Vendor.objects.get(id=pk)
+    if not vendor:
+        messages.warning(request, "No Such Vendor")
+
+    if request.method == 'POST':
+        if vendor:
+            name = vendor.buisness_name
+            vendor.delete()
+            messages.success(request, f'{name} Deleted!')
+        else:
+            messages.warning(request, "No Such Vendor")
+
     context = {'item': vendor}
 
     return render(request, 'delete_vendor.html', context)
@@ -119,12 +124,18 @@ def admin_update_category(request, pk):
 
 
 def admin_delete_category(request, pk):
-    if request.method == 'POST':
-        category = Category.objects.get(id=pk)
-        category.delete()
-        messages.success(request, "Category Deleted Successfully")
-
     category = Category.objects.get(id=pk)
+
+    if not category:
+        messages.warning(request, 'No Such Category')
+
+    if request.method == 'POST':
+        if category:
+            category.delete()
+            messages.success(request, "Category Deleted Successfully")
+        else:
+            messages.warning(request, 'No Such Category')
+
     context = {'item': category}
     return render(request, 'delete_category.html', context)
 
@@ -175,12 +186,18 @@ def admin_update_subcategory(request, pk):
 
 
 def admin_delete_subcategory(request, pk):
-    if request.method == 'POST':
-        category = SubCategory.objects.get(id=pk)
-        category.delete()
-        messages.success(request, "Sub Category Deleted Successfully")
-
     category = SubCategory.objects.get(id=pk)
+
+    if not category:
+        messages.warning(request, 'No Such Subcategory')
+
+    if request.method == 'POST':
+        if category:
+            category.delete()
+            messages.success(request, "Sub Category Deleted Successfully")
+        else:
+            messages.warning(request, 'No Such Subcategory')
+
     context = {'item': category}
     return render(request, 'delete_subcategory.html', context)
 
@@ -230,11 +247,15 @@ def admin_update_Tag(request, pk):
 def admin_delete_Tag(request, pk):
     item = Tag.objects.get(id=pk)
 
+    if not item:
+        messages.warning(request, 'No Such Tag')
     if request.method == 'POST':
-        item = Tag.objects.get(id=pk)
-        item.delete()
-        messages.success(request, "Tag Deleted Successfully")
-
+        if item:
+            item = Tag.objects.get(id=pk)
+            item.delete()
+            messages.success(request, "Tag Deleted Successfully")
+        else:
+            messages.warning(request, 'No Such Tag')
     context = {"item": item}
     return render(request, 'delete_Tag.html', context)
 
@@ -262,12 +283,15 @@ def admin_update_review(request, pk):
 
 def admin_delete_review(request, pk):
     item = UserReview.objects.get(id=pk)
-
+    if not item:
+        messages.warning(request, 'No Such Review')
     if request.method == 'POST':
-        item = UserReview.objects.get(id=pk)
-        item.delete()
-        messages.success(request, "Review Deleted Successfully")
-
+        if item:
+            item = UserReview.objects.get(id=pk)
+            item.delete()
+            messages.success(request, "Review Deleted Successfully")
+        else:
+            messages.warning(request, 'No Such Tag')
     context = {"item": item}
     return render(request, 'delete_review.html', context)
 
@@ -316,12 +340,15 @@ def admin_update_product(request, pk):
 
 def admin_delete_product(request, pk):
     item = Product.objects.get(id=pk)
-
+    if not item:
+        messages.warning(request, 'No Such Product')
     if request.method == 'POST':
-        item = Product.objects.get(id=pk)
-        item.delete()
-        messages.success(request, "Product Deleted Successfully")
-
+        if item:
+            item = Product.objects.get(id=pk)
+            item.delete()
+            messages.success(request, "Product Deleted Successfully")
+        else:
+            messages.warning(request, 'No Such Product')
     context = {"item": item}
     return render(request, 'delete_product.html', context)
 
@@ -377,11 +404,15 @@ def admin_update_listing(request, pk):
 def admin_delete_listing(request, pk):
     item = Listing.objects.get(id=pk)
 
+    if not item:
+        messages.warning(request, 'No Such Listing')
     if request.method == 'POST':
-        item = Listing.objects.get(id=pk)
-        item.delete()
-        messages.success(request, "Listing Deleted Successfully")
-
+        if item:
+            item = Listing.objects.get(id=pk)
+            item.delete()
+            messages.success(request, "Listing Deleted Successfully")
+        else:
+            messages.warning(request, 'No Such Listing')
     context = {"item": item}
     return render(request, 'delete_listing.html', context)
 
@@ -392,6 +423,15 @@ def admin_list_listing(request):
     context = {'listings': listings, 'products': products}
     return render(request, 'list_listing.html', context)
 
+
+def admin_detail_listing(request, pk):
+    listing = Listing.objects.get(id=pk)
+    vendor = Vendor.objects.get(id=listing.vendor)
+    product = Product.objects.get(id=listing.product)
+
+    context = {'listing': listing, 'vendor': vendor,
+               'product': product}
+    return render(request, 'detail_listing.html', context)
 # Admin payment Management
 
 
@@ -439,12 +479,15 @@ def admin_update_location(request, pk):
 
 def admin_delete_location(request, pk):
     item = DeliveryLocation.objects.get(id=pk)
-
+    if not item:
+        messages.warning(request, 'No Such Location')
     if request.method == 'POST':
-        item = DeliveryLocation.objects.get(id=pk)
-        item.delete()
-        messages.success(request, "Listing Deleted Successfully")
-
+        if item:
+            item = DeliveryLocation.objects.get(id=pk)
+            item.delete()
+            messages.success(request, "Listing Deleted Successfully")
+        else:
+            messages.warning(request, 'No Such Location')
     context = {"item": item}
     return render(request, 'delete_location.html', context)
 

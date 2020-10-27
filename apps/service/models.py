@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
 
 class State(models.Model):
@@ -19,7 +20,7 @@ class City(models.Model):
 
 
 class PinCode(models.Model):
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    city = models.ForeignKey("service.City", on_delete=models.CASCADE)
     title = models.CharField(verbose_name="Pin Code", max_length=6)
     is_active = models.BooleanField(verbose_name="Service", default=True)
 
@@ -50,12 +51,12 @@ class Address(models.Model):
 
 
 class DeliveryLocation(models.Model):
-    pincode = models.ForeignKey(PinCode,
+    pincode = models.ForeignKey("service.PinCode",
                                 on_delete=models.CASCADE)
 
-    city = models.ForeignKey(City,
+    city = models.ForeignKey("service.City",
                              on_delete=models.CASCADE)
-    address = models.ForeignKey(Address,
+    address = models.ForeignKey("service.Address",
                                 on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
 
@@ -121,3 +122,14 @@ class BankAccount(models.Model):
 
     def __str__(self):
         return self.bname
+
+
+class SupportMessage(models.Model):
+    vendor = models.ForeignKey("seller.Vendor",
+                               on_delete=models.CASCADE)
+    message = models.TextField()
+    created_at = models.DateTimeField(default=timezone.now)
+    complete = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.vendor} , {self.created_at}'

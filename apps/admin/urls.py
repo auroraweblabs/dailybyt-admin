@@ -18,7 +18,7 @@ from apps.admin.views import admin_update_listing, admin_update_product
 from apps.admin.views import admin_create_location, admin_delete_location
 from apps.admin.views import admin_detail_location, admin_detail_payment
 from apps.admin.views import admin_list_location, admin_list_payment
-from apps.admin.views import admin_update_location
+from apps.admin.views import admin_update_location, admin_detail_listing
 from django.urls import path
 
 urlpatterns = [
@@ -162,6 +162,10 @@ urlpatterns = [
     path('admin_list_listing/',
          admin_list_listing,
          name="admin_list_listing"),
+
+    path('admin_detail_listing/',
+         admin_detail_listing,
+         name="admin_detail_listing"),
 
     # Payment Paths
     path('admin_list_payment/',
