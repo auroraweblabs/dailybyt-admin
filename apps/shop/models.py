@@ -1,7 +1,4 @@
 from django.db import models
-from apps.customer.models import Customer
-from apps.seller.models import Vendor
-from apps.delivery.models import Delivery
 
 
 class UserReview(models.Model):
@@ -45,7 +42,7 @@ class Category(models.Model):
     commission = models.DecimalField(
         max_digits=5, decimal_places=2, null=True)
     is_digital = models.BooleanField(default=False)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField("shop.Tag")
 
     @staticmethod
     def get_all_categories():
@@ -66,7 +63,8 @@ class Category(models.Model):
 
 class SubCategory(models.Model):
     name = models.CharField(max_length=100, null=True)
-    parent = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    parent = models.ForeignKey("shop.Category", on_delete=models.SET_NULL,
+                               null=True)
     description = models.CharField(max_length=100, null=True, blank=True)
     tags = models.ManyToManyField(Tag)
 
@@ -96,11 +94,11 @@ class Product(models.Model):
     image4 = models.ImageField(
         upload_to='productImages/', null=True, blank=True)
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, null=True)
+        "shop.Category", on_delete=models.CASCADE, null=True)
     subcategory = models.ForeignKey(
-        SubCategory, on_delete=models.CASCADE, null=True)
-    tags = models.ManyToManyField(Tag)
-    reviews = models.ManyToManyField(UserReview, blank=True)
+        "shop.SubCategory", on_delete=models.CASCADE, null=True)
+    tags = models.ManyToManyField("shop.Tag")
+    reviews = models.ManyToManyField("shop.UserReview", blank=True)
 
     @staticmethod
     def get_products_by_id(ids):
@@ -130,8 +128,8 @@ class Product(models.Model):
 
 class Listing(models.Model):
 
-    vendor = models.ForeignKey(Vendor, on_delete=models.DO_NOTHING)
-    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    vendor = models.ForeignKey("seller.Vendor", on_delete=models.DO_NOTHING)
+    product = models.ForeignKey("shop.Product", on_delete=models.DO_NOTHING)
     quantity = models.DecimalField(verbose_name="Quantity",
                                    decimal_places=0, max_digits=10)
     price = models.FloatField(verbose_name="Listing Price")
@@ -159,25 +157,30 @@ class Listing(models.Model):
 
 class Order(models.Model):
 
-    customer = models.ForeignKey(Customer, on_delete=models.DO_NOTHING)
-    products = models.ManyToManyField(Listing)
-    delivery = models.ForeignKey(Delivery, on_delete=models.DO_NOTHING)
+    customer = models.ForeignKey("customer.Customer",
+                                 on_delete=models.DO_NOTHING)
+    products = models.ManyToManyField("shop.Listing")
+    delivery = models.ForeignKey("delivery.Delivery",
+                                 on_delete=models.DO_NOTHING)
     value = models.FloatField()
     payment_status = models.BooleanField(
         default=False, verbose_name="Paid/Unpaid ?")
     delivery_status = models.BooleanField(
         default=False, verbose_name="Delivered/Not ?")
 
+    @staticmethod
     def get_cart_items(self):
         orderitems = self.orderitem_set.all()
         total = sum[(item.quantity for item in orderitems)]
         return total
 
+    @staticmethod
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
         total = sum[(item.get_total for item in orderitems)]
         return total
 
+    @staticmethod
     def get_total_commission(self):
         orderitems = self.orderitems_set.all()
         com = 0
@@ -186,14 +189,17 @@ class Order(models.Model):
                 ((item.product.category.commission) / 100)
         return com
 
+    @staticmethod
     def get_gst(self):
         gst = self.get_total_commission() * (0.18)
         return gst
 
+    @staticmethod
     def vendor_amount(self):
         total = self.get_cart_total - self.get_total_commission - self.get_gst
         return total
 
+    @staticmethod
     def get_ready_orders(self):
         orderitems = self.orderitem.set.all()
         orderitems.filter(payment_status=True, delivery_status=False)
@@ -204,15 +210,29 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
 
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey("shop.Product", on_delete=models.SET_NULL,
+                                null=True)
+    order = models.ForeignKey("shop.Order", on_delete=models.SET_NULL,
+                              null=True)
     quantity = models.IntegerField(default=0, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.product)
 
     @staticmethod
     def get_total(self):
         total = self.product.price * self.quantity
         return total
+
+
+class SaleReport(models.Model):
+    vendor = models.ForeignKey("seller.Vendor", on_delete=models.DO_NOTHING)
+    order = models.ForeignKey("shop.Order", on_delete=models.DO_NOTHING)
+    products = models.ManyToManyField("shop.Product")
+    value = models.DecimalField(max_digits=10, default=0, decimal_places=2)
+    commission = models.DecimalField(max_digits=10, default=0,
+                                     decimal_places=2)
 
 
 class Payment(models.Model):
@@ -222,6 +242,7 @@ class Payment(models.Model):
         ('unpaid', 'Unpaid'),
         ('cod', 'cod'),
     )
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey("shop.Order", on_delete=models.SET_NULL,
+                              null=True)
     status = models.CharField(max_length=40, choices=choices)
     delivered = models.BooleanField(default=False)

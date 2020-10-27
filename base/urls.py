@@ -16,8 +16,9 @@ urlpatterns = [
     path('registerCustomer/', registerCustomer, name='register-customer'),
     path('registerDelivery/', registerDelivery, name='register-delivery'),
     path('logout/', logOut, name="logout"),
-    path('administration/', include('apps.admin.urls'))
-    # path('accounts/', include('apps.accounts.urls'))
+    path('administration/', include('apps.admin.urls')),
+    path('seller/', include('apps.seller.urls'))
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
