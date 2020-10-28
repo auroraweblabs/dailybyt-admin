@@ -1,0 +1,82 @@
+{% extends 'vendor/base.html' %}
+{% load static %}
+
+
+
+{% block title %}
+Verify Location
+{% endblock title %}
+{% block content %}
+<div class="mi-content mi-container mi-green">
+
+    <header>
+    <!-- Header goes here-->
+    </header>
+    
+    <!-- Main Content-->
+    
+    <div class="mi-container mi-center">
+    
+    <div class="mi-col s6">
+    <h1 class="mi-hide-small mi-margin-top">Verify Location</h1>
+    <h3 class="mi-hide-large mi-hide-medium mi-margin-top">Verify Location</h3>
+    </div>
+    <div class="mi-col s6">
+    <img class="mi-right mi-card mi-margin-small mi-round" src="{% static 'images/page3-4.png' %}" alt="Location">
+    </div>
+    </div>
+    
+    <div class="mi-container-round mi-white">
+    
+    <!--Dropdown-->
+    <form class="mi-location-dropdown mi-margin-top">
+    <div class="select mi-margin-top">
+      <select name="slct" id="slct">
+        <option selected disabled>State</option>
+        <option value="1">Maharashtra</option>
+        <option value="2">Gujrat</option>
+        <option value="3">Delhi</option>
+        <option value="4">Punjab</option>
+      </select>
+    </div>
+    <div class="select">
+      <select name="slct" id="slct">
+        <option selected disabled>City</option>
+        <option value="1">Mumbai</option>
+        <option value="2">Thane</option>
+        <option value="3">Navi Mumbai</option>
+        <option value="4">Pune</option>
+        <option value="5">Ahmadabad</option>
+        <option value="6">Surat</option>
+        <option value="7">Vadodara</option>
+      </select>
+    </div>
+    <div class="select  mi-margin-bottom">
+      <select name="slct" id="slct">
+        <option selected disabled>Area</option>
+        <option value="1">Mumbra</option>
+        <option value="2">Kalva</option>
+        <option value="3">Vashi</option>
+      </select>
+    </div>
+    
+    <a href="{% url 'vendor_add_gst'%}"><p class="mi-button mi-hover-green mi-round-xxlarge mi-lime mi-padding mi-card mi-margin-top" style="width:300px;">Verify Now</p></a>
+    
+    </form>
+     
+    <div class="mi-container mi-center">
+    <p>Location not found?</p>  
+    <a href="{% url 'vendor_add_location' %}"><h4 class="mi-margin-bottom">Add your location</h4></a>   
+    </div>
+    
+    </div>
+    </div>
+    
+    <!-- Main Content End-->
+    
+    <footer>
+    <!-- Footer goes here---->
+    <p class="mi-center"></p>
+    </footer>
+    
+{% endblock content %}

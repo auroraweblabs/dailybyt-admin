@@ -1,0 +1,119 @@
+{% extends 'vendor/base.html' %}
+{% load static %}
+
+{% block title %}
+Add Details
+{% endblock title %}
+
+{% block content %}
+<div class="mi-content mi-container mi-green">
+
+    <header>
+    <!-- Header goes here-->
+    </header>
+    
+    <!-- Main Content-->
+    
+    <div class="mi-row">
+    
+    <div class="mi-col s6">
+    <p class="mi-tag mi-round-xlarge mi-lime mi-padding-small mi-margin-bottom mi-card">Step 2 of 4</p>
+    <h1 class="mi-hide-small">Register as a Seller</h1>
+    <h3 class="mi-hide-large mi-hide-medium">Register as a Seller</h3>
+    </div>
+    <div class="mi-col s6">
+    <img class="mi-right mi-card mi-margin-small mi-round" src="{% static 'images/page5-6.png' %}" alt="Seller">
+    </div>
+    </div>
+    
+    <div class="mi-container mi-round-xxlarge mi-margin-bottom mi-white mi-stretch">
+    <form class="mi-container">
+    
+      <div class="mi-row">
+      <div class="mi-col s8 mi-margin-top">
+      <input class="mi-input mi-margin-top" placeholder="123-45-678-90" type="text"></p>
+      </div>
+      <div class="mi-col s4 mi-center">
+      <p class="mi-button mi-circle mi-green mi-tickmark mi-hover-green"><span>&#10004;</span>
+      </div>
+      </div>
+      
+      <p>
+      <input class="mi-input" placeholder="Business Name" type="text"></p>
+      <p>
+      <input class="mi-input" placeholder="Company Pan Card" type="text"></p>
+      <p>
+      <input class="mi-input" placeholder="Email Id" type="text"></p>
+      <p>
+      <input class="mi-input" placeholder="Password" type="password"></p>
+      <p>
+      <input class="mi-input" placeholder="Mobile No." type="text"></p>
+       <p>
+      <input class="mi-input" placeholder="Pickup Pincode" type="text"></p>
+      <!--Change Pickup pincode-->
+      <div class="mi-container">
+      <p onclick="document.getElementById('id01').style.display='block'" class="mi-tiny">Change your Pickup pincode?</p>  
+      <div id="id01" class="mi-modal">
+        <div class="mi-modal-content mi-modal-small mi-card-4 mi-animate-zoom mi-round-large">
+          <div class="mi-center"><br>
+            <span onclick="document.getElementById('id01').style.display='none'" class="mi-button mi-large mi-hover-red mi-display-topright" title="Close Modal">&times;</span>
+            <img src="images/logo-1.png" alt="Dailybyt" style="width:30%" class="mi-circle mi-margin-top">
+          </div>
+          <form class="mi-container">
+            <div class="mi-container mi-center"> 
+            <p><input class="mi-input mi-border" placeholder="New Pickup Pincode" type="text"></p>          
+            <p class="mi-tag mi-lime mi-hover-green mi-section mi-padding" type="submit">Update</p>
+            <hr>         
+            </div>
+          </form> 	  
+         </div>
+       </div>   
+      </div>
+      <div class="mi-container">
+      <p>
+      <input class="mi-input  mi-minus-margin-16" placeholder="Shipping Address" type="text">
+      </p>
+      <!--Change Pickup address-->
+      <div class="mi-container">
+      <p onclick="document.getElementById('id02').style.display='block'" class="mi-tiny">Change your Pickup Address?</p>  
+      <div id="id02" class="mi-modal">
+        <div class="mi-modal-content mi-modal-small mi-card-4 mi-animate-zoom mi-round-large">
+          <div class="mi-center"><br>
+            <span onclick="document.getElementById('id02').style.display='none'" class="mi-button mi-large mi-hover-red mi-display-topright" title="Close Modal">&times;</span>
+            <img src="images/logo-1.png" alt="Dailybyt" style="width:30%" class="mi-circle mi-margin-top">
+          </div>
+          <form class="mi-container">
+            <div class="mi-container mi-center"> 
+            <p><input class="mi-input mi-border" placeholder="New Pickup Address" type="text"></p>          
+            <p class="mi-tag mi-lime mi-hover-green mi-section mi-padding" type="submit">Update</p>
+            <hr>         
+            </div>
+          </form> 	  
+         </div>
+       </div>   
+      </div>
+    
+    </form>
+          
+    <div class="mi-row">
+    <!-- Sell Now Button-->
+    <div class="mi-col s6 mi-center">
+    <a href="{% url 'vendor_verify_otp' %}"><p class="mi-button mi-hover-green mi-round-xxlarge mi-lime mi-padding-large mi-card-4">Sell Now</p></a>
+    </div>
+    
+    <!--Chat icon & Button-->
+    <div class="mi-col s6 mi-center">
+    <p class="chat-icon">&#128172;</p>
+    <p class="mi-minus-margin">Chat</p>
+    </div>
+    </div> 
+     <hr>
+    <!-- Main Content End-->
+    
+    <footer>
+    <!-- Footer goes here---->
+    </footer>
+    </div>
+    </div>
+{% endblock content %}
+    

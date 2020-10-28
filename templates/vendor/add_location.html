@@ -1,0 +1,60 @@
+{% extends 'vendor/base.html' %}
+{% load static %}
+
+
+
+{% block title %}
+Add Location
+{% endblock title %}
+
+{% block content %}
+<div class="mi-content mi-container mi-green">
+
+    <header>
+    <!-- Header goes here-->
+    </header>
+    
+    <!-- Main Content-->
+    
+    <div class="mi-container mi-center">
+    
+    <div class="mi-col s6">
+    <h1 class="mi-hide-small mi-margin-top">Add your Location</h1>
+    <h3 class="mi-hide-large mi-hide-medium mi-margin-top">Add your Location</h3>
+    </div>
+    <div class="mi-col s6">
+    <img class="mi-right mi-card mi-margin-small mi-round" src="{% static 'images/page3-4.png'%}" alt="Location">
+    </div>
+    </div>
+    
+    <div class="mi-container-round mi-white">
+    
+    <!--Dropdown-->
+    <form class="mi-location-dropdown mi-margin-top">
+    <p>
+      <input class="mi-input" placeholder="Enter your State" type="text"></p>
+      <p>
+      <input class="mi-input" placeholder="Enter your City" type="text"></p>
+      <p>
+      <input class="mi-input" placeholder="Enter your Area" type="text"></p>
+      <p>
+      <input class="mi-input" placeholder="Enter Pincode" type="text"></p>
+    <p class="mi-button mi-hover-green mi-round-xxlarge mi-lime mi-padding mi-card mi-margin-top" style="width:300px;"><a href="{% url 'vendor_add_gst' %}">Add your location</p>
+    
+    </form> 
+    </div>
+    
+    </div>
+    
+    <!-- Main Content End-->
+    
+    <footer>
+    <!-- Footer goes here---->
+    <p class="mi-center"></p>
+    </footer>
+    
+    
+    </body>
+    </html>     
+{% endblock content %}
+    

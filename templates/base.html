@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load pwa %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
         
     {% endblock title %}
 </title>
+{% progressive_web_app_meta %}
     {% block basecss %}{% endblock basecss %}
     {% block extracss %}{% endblock extracss %}
             

@@ -3,21 +3,133 @@
 
 
 {% block title %}
-    Vendor Home
+Vendor Home
 {% endblock title %}
-    
+
 
 
 {% block content %}
 
+<div class="mi-content mi-container mi-green">
 
-{% for v in vendor  %}
-    Welcome, {{v}}   
-{% endfor %}
-    
-       
+    <header>
+        <!-- Header goes here-->
+    </header>
 
-        
-  
+    <!-- Main Content-->
+
+    <div class="mi-container">
+
+        <h3 class="mi-margin-top"><span class="mi-margin-right"><a href="#"><i
+                        class="fas fa-chevron-left"></a></i></Span>Dashboard</h3>
+
+    </div>
+
+
+    <div class="mi-container mi-round-xxlarge mi-white">
+        <!--Update Time-->
+        <p class="mi-center mi-small">Updated on : 00:00 AM
+        <p>
+            {% for v in vendor  %}
+            Welcome, {{v}}
+            {% endfor %}
+            <!--Order Summary-->
+        <div class="mi-container">
+            <div class="mi-center">
+                <p class="mi-tag-lime">Order Summary</br><span class="mi-small">Last 30 Days</span></p>
+            </div>
+            <div class="mi-row">
+                <div class="mi-col s6 mi-center">
+                    <p>Total Order</p>
+                    <h3>0</h3>
+                    <p>Order Value</p>
+                    <h3>0</h3>
+                </div>
+                <div class="mi-col s6 mi-center">
+                    <p>Pending</p>
+                    <h3>0</h3>
+                    <p>SLA Breached</p>
+                    <h3>0</h3>
+                </div>
+            </div>
+        </div>
+
+        <!--Payments-->
+        <div class="mi-container">
+            <div class="mi-center">
+                <p class="mi-tag mi-lime">Payments</p>
+            </div>
+            <div class="mi-row">
+                <div class="mi-col s6 mi-center">
+                    <p>Unsettled</p>
+                    <h3>0</h3>
+                </div>
+                <div class="mi-col s6 mi-center">
+                    <p>Last Settled</p>
+                    <h3>0</h3>
+                </div>
+            </div>
+        </div>
+
+        <!--Returns-->
+        <div class="mi-container">
+            <div class="mi-center">
+                <p class="mi-tag mi-lime">Returns</p>
+            </div>
+            <div class="mi-row">
+                <div class="mi-col s6 mi-center">
+                    <p>Buyers Returns</p>
+                    <h3>0</h3>
+                </div>
+                <div class="mi-col s6 mi-center">
+                    <p>Courier Returns</p>
+                    <h3>0</h3>
+                </div>
+            </div>
+        </div>
+
+        <!--CPT Ads Summary-->
+        <div class="mi-container">
+            <div class="mi-center">
+                <p class="mi-tag-lime">CPT Ads Summary</br><span class="mi-small">Last 7 Days</span></p>
+            </div>
+            <div class="mi-row">
+                <div class="mi-col s6 mi-center">
+                    <p>Total Sales</p>
+                    <h3>0</h3>
+                </div>
+                <div class="mi-col s6 mi-center">
+                    <p>Total Spends</p>
+                    <h3>0</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Main Content End-->
+
+    <footer class="mi-content">
+        <!-- Footer goes here---->
+        <div class="mi-stretch mi-border-top mi-padding-16 mi-padding mi-large mi-white mi-center mi-margin-top">
+            <a href="{% url 'vendor_home' %}"><i class="mi-button-round mi-circle mi-green mi-hover-lime fas fa-home"
+                    title="Home"></i></a>
+            <a href="14.html"><i class="mi-button-round mi-circle mi-white mi-hover-lime fas fa-object-group"
+                    title="Catalog"></i></a>
+            <a href="22.html"><i
+                    class="mi-button-round mi-circle mi-white mi-hover-lime mi-padding-large fas fa-rupee-sign"
+                    title="Payments"></i></a>
+            <a href="10.html"><i class="mi-button-round mi-circle mi-white mi-hover-lime fas fa-luggage-cart"
+                    title="Orders"></i></a>
+            <a href="23.html"><i class="mi-button-round mi-circle mi-white mi-hover-lime fas fa-ellipsis-h"
+                    title="More"></i></a>
+        </div>
+        <p class="mi-center"></p>
+    </footer>
+
+</div>
+
+
+
+
 {% endblock content %}
-    

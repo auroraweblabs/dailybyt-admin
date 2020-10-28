@@ -1,0 +1,82 @@
+{% extends 'vendor/base.html' %}
+{% load static %}
+
+
+
+{% block title %}
+Add Location
+{% endblock title %}
+
+
+{% block content %}
+<div class="mi-content mi-container mi-green">
+
+    <header>
+    <!-- Header goes here-->
+    </header>
+    
+    <!-- Main Content-->
+    
+    <div class="mi-row">
+    
+    <div class="mi-col s6">
+    <p class="mi-tag mi-round-xlarge mi-lime mi-padding-small mi-margin-bottom mi-card">Step 4 of 4</p>
+    <h1 class="mi-hide-small">Bank Account</h1>
+    <h3 class="mi-hide-large mi-hide-medium">Bank Account</h3>
+    </div>
+    <div class="mi-col s6">
+    <img class="mi-right mi-card mi-margin-small mi-round" src="{% static 'images/page8.png'%}" alt="Seller">
+    </div>
+    </div>
+    
+    <div class="mi-container mi-round-xxlarge mi-margin-bottom mi-white mi-stretch">
+    <form class="mi-content" Style="max-width:500px;">  
+      <h4 class="mi-margin-top">Bank Details</h4>
+      <p>
+      <input class="mi-input" placeholder="Account Number" type="text"></p>
+      <p>
+      <input class="mi-input" placeholder="Re enter Account Number" type="text"></p>
+      <p>
+      <input class="mi-input" placeholder="Beneficiary Name" type="text"></p>
+      <p>
+      <input class="mi-input" placeholder="IFSC Code" type="text"></p>
+      <p class="mi-tiny">I don't remember IFSC Code</p>
+      <p>
+      <input class="mi-input" placeholder="Bank Name" type="text"></p>
+       <p>
+      <input class="mi-input" placeholder="Branch" type="text"></p>
+      <!--Terms and conditions-->
+      <br>
+      <p>
+      <input class="mi-radio" type="radio" name="bank" value="bank">
+      <label>I have read and accepted the terms and conditions and agree to be contacted by Dailybyt through Email, SMS & Phone.</label></p>
+      <p>
+      <input class="mi-radio" type="radio" name="catalog" value="catalog">
+      <label>Receive important updates on WhatsApp.</label></p>
+      <p>
+    
+    <hr>      
+    <div class="mi-row">
+    <!-- Submit Button-->
+    <div class="mi-col s6 mi-center">
+    <p>
+    <input type="submit" value="Submit" class="mi-button mi-hover-green mi-round-xxlarge mi-lime mi-padding mi-card-4"></p>
+    </div>
+    
+    <!--Chat icon & Button-->
+    <div class="mi-col s6 mi-center">
+    <p class="chat-icon">&#128172;</p>
+    <p class="mi-minus-margin">Chat</p>
+    </div>
+    </form>
+    </div> 
+     <hr>
+    <!-- Main Content End-->
+    
+    <footer>
+    <!-- Footer goes here---->
+    </footer>
+    </div>
+    </div>
+{% endblock content %}
+    

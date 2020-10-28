@@ -9,8 +9,9 @@ from .views import user_login, logOut, registerAdmin, registerVendor
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name="home"),
-    path('login/', user_login, name="login"),
+    #path('', home, name="home"),
+    path('',include('pwa.urls')),
+    path('', user_login, name="login"),
     path('registerAdmin/', registerAdmin, name='register-admin'),
     path('registerVendor/', registerVendor, name='register-vendor'),
     path('registerCustomer/', registerCustomer, name='register-customer'),

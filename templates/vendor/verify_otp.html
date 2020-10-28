@@ -1,0 +1,121 @@
+{% extends 'vendor/base.html' %}
+{% load static %}
+
+
+
+{% block title %}
+Verify Otp
+{% endblock title %}
+
+{% block content %}
+<div class="mi-content mi-container mi-green">
+
+    <!-- Masthead-->
+    
+    <div class="mi-row">
+    
+    <div class="mi-col s6">
+    <p class="mi-tag mi-round-xlarge mi-lime mi-padding-small mi-margin-bottom mi-card">Step 3 of 4</p>
+    <h1 class="mi-hide-small">OTP Verification</h1>
+    <h3 class="mi-hide-large mi-hide-medium">OTP Verification</h3>
+    </div>
+    <div class="mi-col s6">
+    <img class="mi-right mi-card mi-margin-small mi-round mi-image" src="{% static 'images/page7.png' %}" alt="Seller">
+    </div>
+    </div>
+    
+    <!-- Main Content-->
+    
+    <div class="mi-container mi-round-xxlarge mi-margin-bottom mi-white mi-stretch">
+    
+    <!-- Mobile Verification-->
+    <div class="mi-container mi-padding-24" style="max-width:500px;">
+    <h4>Mobile Verification</h4>
+    <p class="mi-small">OTP has been sent to your mobile 'xxxxxx2025'</p>
+    
+    <!--Change Mobile Number Modal-->
+    
+      <div class="mi-section">
+      <p onclick="document.getElementById('id01').style.display='block'" class="mi-tiny-left">Change Mobile Number?</p>  
+      <div id="id01" class="mi-modal">
+        <div class="mi-modal-content mi-modal-small mi-card-4 mi-animate-zoom mi-round-large">
+          <div class="mi-center"><br>
+            <span onclick="document.getElementById('id01').style.display='none'" class="mi-button mi-large mi-hover-red mi-display-topright" title="Close Modal">&times;</span>
+            <img src="{% static 'images/logo-1.png'%}" alt="Dailybyt" style="width:30%" class="mi-circle mi-margin-top">
+          </div>
+          <form class="mi-container">
+            <div class="mi-container mi-center"> 
+            <p><input class="mi-input mi-border" placeholder="New Mobile Number" type="text"></p>          
+            <p class="mi-tag mi-lime mi-hover-green mi-section mi-padding" type="submit">Update</p>
+            <hr>         
+            </div>
+          </form> 	  
+         </div>
+       </div>   
+      </div>
+     
+    <!-- Mobile OTP Verification Form--> 
+    
+     <form class="mi-container mi-padding-24"> 
+       <p>
+      <input class="mi-input" placeholder="Enter Mobile OTP" type="text"></p>
+      <p class="mi-tiny-left">Resend OTP</p>
+      <div class="mi-content mi-center">
+      <a class="mi-button mi-hover-green mi-round-xxlarge mi-lime mi-card" href="{% url 'vendor_add_bank_account' %}">Verify OTP</a>
+      </div>
+      </form>
+      
+    <!-- Email Verification-->
+    <div class="mi-container mi-padding-24" style="max-width:500px;">
+    <h4>Email Verification</h4>
+    <p class="mi-small">OTP has been sent to your Email 'daixxxxxx@gmail.com'</p>
+    
+    <!--Change Email Address Modal-->
+    
+      <div class="mi-section">
+      <p onclick="document.getElementById('id02').style.display='block'" class="mi-tiny-left">Change Email Address?</p>  
+      <div id="id02" class="mi-modal">
+        <div class="mi-modal-content mi-modal-small mi-card-4 mi-animate-zoom mi-round-large">
+          <div class="mi-center"><br>
+            <span onclick="document.getElementById('id02').style.display='none'" class="mi-button mi-large mi-hover-red mi-display-topright" title="Close Modal">&times;</span>
+            <img src="{% static 'images/logo-1.png'%}" alt="Dailybyt" style="width:30%" class="mi-circle mi-margin-top">
+          </div>
+          <form class="mi-container">
+            <div class="mi-container mi-center"> 
+            <p><input class="mi-input mi-border" placeholder="New Email Address" type="email"></p>          
+            <p class="mi-tag mi-lime mi-hover-green mi-section mi-padding" type="submit">Update</p>
+            <hr>         
+            </div>
+          </form> 	  
+         </div>
+       </div>   
+      </div>
+     
+    <!-- Email OTP Verification Form--> 
+    
+      <form class="mi-container mi-padding-24"> 
+      <p>
+      <input class="mi-input" placeholder="Enter Email OTP" type="text"></p>
+      <p class="mi-tiny-left">Resend OTP</p>
+      <div class="mi-content mi-center">
+      <a class="mi-button mi-hover-green mi-round-xxlarge mi-lime mi-card" href="{% url 'vendor_add_bank_account' %}">Verify Email</a>
+      </div>
+      </form>
+    </div>
+    <!--Chat icon & Button-->
+    <div class="mi-container mi-right">
+    <p class="chat-icon">&#128172;</p>
+    <p class="mi-minus-margin mi-padding-right mi-small"><span class="mi-right">Chat&nbsp;&nbsp;&nbsp;</span></p>
+    </div>
+    </div> 
+     <hr>
+    <!-- Main Content End-->
+    
+    <footer>
+    <!-- Footer goes here---->
+    </footer>
+    
+    </div>
+    </div>
+{% endblock content %}
+    

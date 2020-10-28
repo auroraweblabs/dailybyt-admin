@@ -13,7 +13,7 @@ SECRET_KEY = 'h4=g!0fxfud=wi@29kbxxgku_m@o@=6@x%432+1l8bd_n-h@&b'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['f6be65e2ca05.ngrok.io']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -114,7 +114,7 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
-PWA_APP_NAME = 'eCommerce'
+PWA_APP_NAME = 'DailyByt'
 PWA_APP_DESCRIPTION = "It's time to do buisness online."
 PWA_APP_THEME_COLOR = '#348537'
 PWA_APP_BACKGROUND_COLOR = '#ffffff'

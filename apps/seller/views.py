@@ -10,19 +10,12 @@ from django.contrib import messages
 
 
 # Exclusive Views for Vendors
-def vendor_home(request):
-    vendor = Vendor.objects.all()
-    context = {'vendor': vendor}
-    print(vendor)
-    return render(request, 'vendor/home.html', context)
-
-
 def vendor_register_withgst(request):
     context = {}
-    return render(request, 'vendor/register.html', context)
+    return render(request, 'vendor/register_with_gst.html', context)
 
 
-def vendor_verify_location(request, pk):
+def vendor_verify_location(request):
     context = {}
     return render(request, 'vendor/verify_location.html', context)
 
@@ -32,7 +25,7 @@ def vendor_add_service_location(request):
     return render(request, 'vendor/add_location.html', context)
 
 
-def vendor_add_gst(self, pk):
+def vendor_add_gst(request):
     context = {}
     return render(request, 'vendor/add_gst.html', context)
 
@@ -44,7 +37,7 @@ def vendor_verify_gst(self, pk):
 
 def vendor_register_nogst(request):
     context = {}
-    return render(request, 'vendor/register.html', context)
+    return render(request, 'vendor/register_nogst.html', context)
 
 
 def vendor_send_otp(request, pk):
@@ -52,21 +45,24 @@ def vendor_send_otp(request, pk):
     return render(request, 'vendor/send_otp.html', context)
 
 
-def vendor_verify_otp(request, pk):
+def vendor_verify_otp(request):
     context = {}
     return render(request, 'vendor/verify_otp.html', context)
 
-
-def vendor_add_bank_account(request, pk):
+def vendor_add_bank_account(request):
     context = {}
     return render(request, 'vendor/add_bank_account.html', context)
 
 # Shop Views for Vendor - Product
+def vendor_home(request):
+    vendor = Vendor.objects.all()
+    context = {'vendor': vendor}
+    print(vendor)
+    return render(request, 'vendor/home.html', context)
 
 
 def vendor_create_product(request):
     form = ProductForm()
-
     if request.method == 'POST':
         form = ProductForm(request.POST)
 

@@ -1,0 +1,74 @@
+{% extends 'vendor/base.html' %}
+{% load static %}
+
+
+
+{% block title %}
+Add Location
+{% endblock title %}
+
+{% block content %}
+<div class="mi-content mi-container mi-green">
+
+    <header>
+    <!-- Header goes here-->
+    </header>
+    
+    <!-- Main Content-->
+    
+    <div class="mi-row">
+    
+    <div class="mi-col s6">
+    <p class="mi-tag mi-round-xlarge mi-lime mi-padding-small mi-margin-bottom mi-card">Step 1 of 4</p>
+    <h1 class="mi-hide-small mi-margin-top">Register as a Seller</h1>
+    <h3 class="mi-hide-large mi-hide-medium mi-margin-top">Register as a Seller</h3>
+    </div>
+    <div class="mi-col s6">
+    <img class="mi-right mi-card mi-margin-small mi-round" src="{% static 'images/page5-6.png' %}" alt="Seller">
+    </div>
+    </div>
+    
+    <div class="mi-container mi-round-xxlarge mi-margin-bottom mi-white mi-stretch">
+    
+    <form class="mi-content mi-padding-32" style="max-width:400px">
+      
+      <p>
+      <input class="mi-input" placeholder="GST No." type="text"></p>
+      
+      <div class=" mi-container mi-center">
+      <a href="{% url 'vendor_register_with_gst'%}"><p class="mi-button mi-hover-green mi-round-xxlarge mi-lime mi-padding mi-card-4 mi-center">Verify Now</p></a> 
+      <h5>Or</h5>
+    <p>Skip this step if you are selling GST Exempted Goods. </p>
+    <a href="{% url 'vendor_register_nogst' %}"><p class="mi-button mi-hover-green mi-round-xxlarge mi-lime mi-padding mi-card-4 mi-center">Skip This Step</p></a> 
+      </div>
+    
+    </form>  
+    
+    
+    
+    <div class="mi-container mi-center mi-padding-32">
+    <h4>How it is simple to sell on Dailybyt</h4>
+    <img src="{% static 'images/page5-bottom.png' %}">
+    </div> 
+    <!--<h4>Step 1: Register yourself & List your Products.</h4>  
+    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a gravida mauris, ut sollicitudin leo. Vestibulum rutrum pellentesque interdum. Pellentesque suscipit non ante eu interdum. Proin suscipit purus non mi pharetra viverra. Vestibulum ut molestie orci, sed efficitur arcu. Cras fermentum ligula mi, vel pulvinar lorem volutpat vitae. Cras luctus odio sed augue consequat pretium. Morbi eros erat, auctor at euismod ac, lacinia congue enim. Sed maximus bibendum feugiat.</p>
+    
+    <h4>Step 2: Get Support From Professional Service Provider</h4>
+    <p>Nulla pulvinar, neque et pharetra aliquet, dolor lacus mollis tellus, sit amet venenatis enim lacus eu diam. Sed pellentesque enim nec massa ullamcorper semper. Proin molestie magna eu metus sodales, in pulvinar mi placerat. Maecenas efficitur gravida mattis. Vestibulum cursus eros eu vehicula aliquam. Donec vulputate vel ante sit amet pulvinar. Ut ultricies, neque a venenatis elementum, ligula quam dapibus elit, quis lacinia dolor lorem rutrum ex. Praesent consequat leo at quam gravida, quis condimentum felis bibendum.</p>
+     
+    <h4>Step 3: Receive order & Schedule a pickup</h4> 
+    <p>Etiam vitae nulla consequat, pretium dolor quis, sollicitudin nulla. Phasellus scelerisque luctus nibh, at aliquet erat condimentum ac. Nunc vestibulum odio non malesuada vehicula. Duis tempus aliquam erat, sit amet blandit nibh elementum in. Nulla imperdiet, est ac porta rhoncus, mauris magna tempor libero, eu semper quam est ut arcu. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi pharetra dictum purus, at vestibulum nisl dictum a. Etiam odio est, tincidunt eu ante non, dapibus tincidunt quam. Ut ultricies cursus mi. </p>
+    <hr>-->
+    <div class="mi-right">
+    <p class="chat-icon">&#128172;</p>
+    <p class="mi-minus-margin">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chat</p>
+    </div>
+    <!-- Main Content End-->
+    
+    <footer>
+    <!-- Footer goes here---->
+    </footer>
+    </div>
+    </div>
+{% endblock content %}
+    
