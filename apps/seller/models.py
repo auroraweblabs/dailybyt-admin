@@ -1,6 +1,27 @@
 from django.db import models
 from apps.service.models import Address, BankAccount, DeliveryLocation
+from django.utils import timezone
+from datetime import datetime, timedelta,date
 from django.conf import settings
+
+class VendorToday(models.Manager):
+    def get_queryset(self):
+        today = date.today()
+        return super(VendorToday, self).get_queryset().filter(added_on__gte=today)
+    
+class VendorYesterday(models.Manager):
+    def get_queryset(self):
+        today = date.today()
+        yesterday = (today - timedelta(1))
+        return super(VendorYesterday, self).get_queryset().filter(added_on__range=(yesterday,today))
+
+
+class VendorThisWeek(models.Manager):
+    def get_queryset(self):
+        added_on = models.DateTimeField(default=timezone.now)
+        today = date.today()
+        week = (today - timedelta(7))
+        return super(VendorThisWeek, self).get_queryset().filter(added_on__gt=week)
 
 
 class Vendor(models.Model):
@@ -22,6 +43,12 @@ class Vendor(models.Model):
     address = models.ForeignKey(Address, verbose_name='Address',
                                 on_delete=models.CASCADE,
                                 null=True, blank=True)
+    added_on = models.DateTimeField(default=timezone.now)
+    
+    objects= models.Manager()
+    today = VendorToday()
+    yesterday = VendorYesterday()
+    week = VendorThisWeek()
 
     @staticmethod
     def get_all_vendors():
@@ -29,3 +56,7 @@ class Vendor(models.Model):
 
     def __str__(self) -> str:
         return self.buisness_name
+
+
+
+    

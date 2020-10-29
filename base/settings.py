@@ -13,7 +13,7 @@ SECRET_KEY = 'h4=g!0fxfud=wi@29kbxxgku_m@o@=6@x%432+1l8bd_n-h@&b'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['']
+ALLOWED_HOSTS = ['b0bcd385237f.ngrok.io','872df7d6f5ca.ngrok.io','127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',

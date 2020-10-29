@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.utils import timezone
+from datetime import datetime, timedelta,date
 
 class UserReview(models.Model):
     choices = (
@@ -154,6 +155,24 @@ class Listing(models.Model):
     def __str__(self):
         return self.vendor
 
+class OrderToday(models.Manager):
+    def get_queryset(self):
+        today = date.today()
+        return super(OrderToday, self).get_queryset().filter(added_on__gte=today)
+    
+class OrderYesterday(models.Manager):
+    def get_queryset(self):
+        today = date.today()
+        yesterday = (today - timedelta(1))
+        return super(OrderYesterday, self).get_queryset().filter(added_on__range=(yesterday,today))
+
+
+class OrderThisWeek(models.Manager):
+    def get_queryset(self):
+        added_on = models.DateTimeField(default=timezone.now)
+        today = date.today()
+        week = (today - timedelta(7))
+        return super(OrderThisWeek, self).get_queryset().filter(added_on__gt=week)
 
 class Order(models.Model):
 
@@ -167,6 +186,12 @@ class Order(models.Model):
         default=False, verbose_name="Paid/Unpaid ?")
     delivery_status = models.BooleanField(
         default=False, verbose_name="Delivered/Not ?")
+    added_on = models.DateTimeField(default=timezone.now)
+    
+    objects= models.Manager()
+    today = OrderToday()
+    yesterday = OrderYesterday()
+    week = OrderThisWeek()    
 
     @staticmethod
     def get_cart_items(self):

@@ -1,23 +1,264 @@
 {% extends 'administrator/base.html'%}
 {% load static %}
 
+{% block extracss %}
+<link rel="stylesheet" href="{% static 'css/admin/admin_home.css' %}">
+{% endblock extracss %}
+
 {% block content %}
-<div class="container-fluid" >
+<div class="container-fluid">
     <div style="margin-left:60px;">
         <br>
-    <div class="container border shadow rounded">
+        <div class="container-fluid border shadow rounded">
+            <br>
+            <br>
+
+            {% for message in messages  %}
+            <div class="container alert alert-success alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{message}}
+            </div>
+
+            {% endfor %}
+            
+            <div class="auto-container">
+
+                <div class="sec-title">
+                    <h1 class="text-center">Welcome {{username}}</h1>
+                </div>
+
+            </div>
+
+            <div class="row mx-2">
+                <div class="col-md-3">
+                    <div class="card-counter primary">
+                        <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                        <span class="count-numbers">{{category}}</span>
+                        <span class="count-name">Categories</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-counter danger">
+                        <i class="fa fa-code-fork" aria-hidden="true"></i>
+                        <span class="count-numbers">{{subcategory}}</span>
+                        <span class="count-name">Sub Categories</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-counter success">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        <span class="count-numbers">{{products}}</span>
+                        <span class="count-name">Products</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-counter info">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        <span class="count-numbers">{{servicelocation}}</span>
+                        <span class="count-name">Service Locations</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mx-2">
+                <div class="col-md-3">
+                    <div class="card-counter info">
+                        <i class="fa fa-list" aria-hidden="true"></i>
+                        <span class="count-numbers">{{listing}}</span>
+                        <span class="count-name">Listings</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-counter success">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <span class="count-numbers">{{vendor}}</span>
+                        <span class="count-name">Vendors</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-counter danger">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <span class="count-numbers">{{customer}}</span>
+                        <span class="count-name">Customers</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-counter primary">
+                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
+
+                        <span class="count-numbers">{{order}}</span>
+                        <span class="count-name">Orders</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-md-2 ">
+                <div class="col-sm-6">
+                    <canvas class="bg-light" id="VendorChart" ></canvas>
+                </div>
+                <div class="col-sm-6">
+                    <canvas class="bg-light" id="CustomerChart" ></canvas>
+                </div>
+            </div>
+            <div class="row mt-md-2 ">
+                <div class="col-sm-6">
+                    <canvas class="bg-light" id="SalesChart" ></canvas>
+                </div>
+                <div class="col-sm-6">
+                    <canvas class="bg-light" id="OrderChart" ></canvas>
+                </div>
+            </div>
+
+            <br>
+
+            <br>
+        </div>
+
         <br>
-        <h1 class="text-center"> Hello {{username}}
-            {% for message in messages %}
-            {{message}}
-            {% endfor %}</h1>
-        <br>
-        
-        <br>
-    </div>
-    <br>
     </div>
 </div>
-   
+
 {% endblock content %}
+
+{% block extrajs %}
+<script>
+    var ctx = document.getElementById('VendorChart').getContext('2d');
+    var VendorChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['This Week', 'Yesterday', 'Today'],
+            datasets: [{
+                label: 'New Vendors',
+                data: [ '{{vendor_week}}','{{vendor_yesterday}}', '{{vendor_today}}'],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    var ctx = document.getElementById('CustomerChart').getContext('2d');
+    var CustomerChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [ 'This Week', 'Yesterday', 'Today'],
+            datasets: [{
+                label: 'New Customers',
+                data: ['{{customer_week}}','{{customer_yesterday}}','{{customer_today}}'],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    var ctx = document.getElementById('SalesChart').getContext('2d');
+    var SalesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [ 'This Week', 'Yesterday', 'Today'],
+            datasets: [{
+                label: 'Sales',
+                data: ['{{sales_week}}','{{sales_yesterday}}','{{sales_today}}'],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    var ctx = document.getElementById('OrderChart').getContext('2d');
+    var OrderChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [ 'This Week', 'Yesterday', 'Today'],
+            datasets: [{
+                label: 'Orders',
+                data: [5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    
+                ],
+                borderColor: [
+                    '#000',
+                    '#000',
+                    '#000',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+    </script>
+{% endblock extrajs %}
     

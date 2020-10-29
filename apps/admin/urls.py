@@ -30,7 +30,7 @@ urlpatterns = [
          admin_create_vendor,
          name='admin_create_vendor'),
 
-    path('admin_update_vendor/<int:pk>',
+    path('admin_update_vendor/:<int:pk>',
          admin_update_vendor,
          name='admin_update_vendor'),
 

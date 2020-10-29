@@ -1,14 +1,15 @@
+from apps.customer.models import Customer
 from apps.shop.forms import CategoryForm, ListingForm, SubCategoryForm
 from apps.shop.forms import ProductForm, UserReviewForm, TagForm
-from apps.shop.models import Category, Payment, SubCategory, Tag, UserReview
+from apps.shop.models import Category, Order, Payment, SubCategory, Tag, UserReview
 from apps.shop.models import Product, Listing
 from apps.service.models import DeliveryLocation
 from apps.service.forms import DeliveryLocationForm
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from apps.accounts.models import User
 from apps.seller.forms import VendorForm
 from apps.accounts.forms import CreateVendorForm
-from apps.seller.models import Vendor
+from apps.seller.models import Vendor, VendorToday
 from django.contrib.auth.models import Group
 from django.contrib import messages
 # Admin Home
@@ -16,8 +17,39 @@ from django.contrib import messages
 
 def admin_home(request):
     user = request.user
+    category = Category.objects.all().count()
+    subcategory = SubCategory.objects.all().count()
+    vendor = Vendor.objects.all().count()
+    products = Product.objects.all().count()
+    servicelocation = DeliveryLocation.objects.all().count()
+    listing = Listing.objects.all().count()
+    order = Order.objects.all().count()
     username = User.get_full_name(user)
-    context = {'username': username}
+    customer = Customer.objects.all().count()
+    vendor_today = Vendor.today.all().count()
+    vendor_yesterday = Vendor.yesterday.all().count()
+    vendor_week = Vendor.week.all().count()
+    customer_today = Customer.today.all().count()
+    customer_yesterday = Customer.today.all().count()
+    customer_week = Customer.today.all().count()
+
+    context = {
+        'username': username,
+        'category':category,
+        'subcategory':subcategory,
+        'products':products,
+        'vendor':vendor,
+        'listing':listing,
+        'servicelocation':servicelocation,
+        'order':order,
+        'customer':customer,
+        'vendor_today':vendor_today,
+        'vendor_yesterday':vendor_yesterday,
+        'vendor_week':vendor_week,
+        'customer_today':customer_today,
+        'customer_yesterday':customer_yesterday,
+        'customer_week':customer_week,
+        }
     return render(request, 'administrator/home.html', context)
 
 
@@ -42,37 +74,43 @@ def admin_create_vendor(request):
                 buisness_name=name, aadhar_number=aadhar)
             vendor.save()
             messages.success(request, f'{vendor} saved!')
+            return redirect('admin_list_vendor')
 
     context = {'form': form}
     return render(request, 'administrator/create_vendor.html', context)
 
 
 def admin_update_vendor(request, pk):
-    form = VendorForm(instance=pk)
+    vendor = Vendor.objects.get(id=pk)
+    form = VendorForm(instance=vendor)
 
     if request.method == 'POST':
-        form = VendorForm(request.POST, instance=pk)
+        form = VendorForm(request.POST, instance=vendor)
 
         if form.is_valid():
             vendor = form.save()
             messages.success(request, f'{vendor} updated!')
+            return redirect('admin_list_vendor')
 
     context = {'form': form}
-    return render(request, 'administrator/update_vendor.html', context)
+    return render(request, 'administrator/edit_vendor.html', context)
 
 
 def admin_delete_vendor(request, pk):
-    vendor = Vendor.objects.get(id=pk)
+    vendor = Vendor.objects.get_or_404(id=pk)
     if not vendor:
         messages.warning(request, "No Such Vendor")
+        return redirect('admin_list_vendor')
 
     if request.method == 'POST':
         if vendor:
             name = vendor.buisness_name
             vendor.delete()
             messages.success(request, f'{name} Deleted!')
+            return redirect('admin_list_vendor')
         else:
             messages.warning(request, "No Such Vendor")
+            return redirect('admin_list_vendor')
 
     context = {'item': vendor}
 
@@ -103,6 +141,7 @@ def admin_create_category(request):
         if form.is_valid():
             category = form.save()
             messages.success(request, f'{category} created Successfully')
+            return redirect('admin_list_category')
 
     context = {'form': form}
     return render(request, 'administrator/create_category.html', context)
@@ -118,6 +157,7 @@ def admin_update_category(request, pk):
         if form.is_valid():
             category = form.save()
             messages.success(request, "Changes To Category Saved Successfully")
+            return redirect('admin_list_category')
 
     context = {'form': form, 'category': category}
     return render(request, 'administrator/update_category.html', context)
@@ -128,16 +168,20 @@ def admin_delete_category(request, pk):
 
     if not category:
         messages.warning(request, 'No Such Category')
+        return redirect('admin_list_category')
 
     if request.method == 'POST':
         if category:
             category.delete()
             messages.success(request, "Category Deleted Successfully")
+            return redirect('admin_list_category')
         else:
             messages.warning(request, 'No Such Category')
+            return redirect('admin_list_category')
 
     context = {'item': category}
     return render(request, 'administrator/delete_category.html', context)
+
 
 
 def admin_list_category(request):
@@ -165,6 +209,7 @@ def admin_create_subcategory(request):
         if form.is_valid():
             category = form.save()
             messages.success(request, f'{category} created Successfully')
+            return redirect('admin_list_subcategory')
 
     context = {'form': form}
     return render(request, 'administrator/create_subcategory.html', context)
@@ -180,23 +225,27 @@ def admin_update_subcategory(request, pk):
         if form.is_valid():
             category = form.save()
             messages.success(request, "Changes To SubCategory Successful")
+            return redirect('admin_list_subcategory')
 
     context = {'form': form, 'category': category}
     return render(request, 'administrator/update_subcategory.html', context)
 
 
 def admin_delete_subcategory(request, pk):
-    category = SubCategory.objects.get(id=pk)
+    category = SubCategory.objects.get_or_404(id=pk)
 
     if not category:
         messages.warning(request, 'No Such Subcategory')
+        return redirect('admin_list_subcategory')
 
     if request.method == 'POST':
         if category:
             category.delete()
             messages.success(request, "Sub Category Deleted Successfully")
+            return redirect('admin_list_subcategory')
         else:
             messages.warning(request, 'No Such Subcategory')
+            return redirect('admin_list_subcategory')
 
     context = {'item': category}
     return render(request, 'administrator/delete_subcategory.html', context)
@@ -225,6 +274,7 @@ def admin_create_Tag(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Tag Created Successfully")
+            return redirect('admin_list_tag')
 
     context = {"form": form}
     return render(request, 'administrator/create_tag.html', context)
@@ -239,23 +289,27 @@ def admin_update_Tag(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, "Changes to Tag Saved Successfully")
+            return redirect('admin_list_tag')
 
     context = {"form": form, 'tag': tag}
     return render(request, 'administrator/update_tag.html', context)
 
 
 def admin_delete_Tag(request, pk):
-    item = Tag.objects.get(id=pk)
+    item = Tag.objects.get_or_404(id=pk)
 
     if not item:
         messages.warning(request, 'No Such Tag')
+        return redirect('admin_list_tag')
     if request.method == 'POST':
         if item:
             item = Tag.objects.get(id=pk)
             item.delete()
             messages.success(request, "Tag Deleted Successfully")
+            return redirect('admin_list_tag')
         else:
             messages.warning(request, 'No Such Tag')
+            return redirect('admin_list_tag')
     context = {"item": item}
     return render(request, 'administrator/delete_tag.html', context)
 
@@ -277,6 +331,7 @@ def admin_update_review(request, pk):
         if form.is_valid():
             form.save
             messages.success(request, 'Update Successful')
+            return redirect('admin_list_review')
     context = {'form': form}
     return render(request, 'administrator/update_review.html', context)
 
@@ -285,13 +340,16 @@ def admin_delete_review(request, pk):
     item = UserReview.objects.get(id=pk)
     if not item:
         messages.warning(request, 'No Such Review')
+        return redirect('admin_list_userreview')
     if request.method == 'POST':
         if item:
             item = UserReview.objects.get(id=pk)
             item.delete()
             messages.success(request, "Review Deleted Successfully")
+            return redirect('admin_list_userreview')
         else:
             messages.warning(request, 'No Such Tag')
+            return redirect('admin_list_userreview')
     context = {"item": item}
     return render(request, 'administrator/delete_review.html', context)
 
@@ -319,6 +377,7 @@ def admin_create_product(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Product Created Successfully")
+            return redirect('admin_list_product')
 
     context = {"form": form}
     return render(request, 'administrator/create_product.html', context)
@@ -333,6 +392,7 @@ def admin_update_product(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, "Changes Saved Successfully")
+            return redirect('admin_list_product')
 
     context = {"form": form, "product": product}
     return render(request, 'administrator/update_product.html', context)
@@ -347,8 +407,10 @@ def admin_delete_product(request, pk):
             item = Product.objects.get(id=pk)
             item.delete()
             messages.success(request, "Product Deleted Successfully")
+            return redirect('admin_list_product')
         else:
             messages.warning(request, 'No Such Product')
+            return redirect('admin_list_product')
     context = {"item": item}
     return render(request, 'administrator/delete_product.html', context)
 
@@ -382,6 +444,7 @@ def admin_create_listing(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Listing Created Successfully")
+            return redirect('admin_list_listing')
 
     context = {"form": form}
     return render(request, 'administrator/create_listing.html', context)
@@ -396,13 +459,14 @@ def admin_update_listing(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, "Changes To Listing Saved Successfully")
+            return redirect('admin_list_listing')
 
     context = {"form": form}
     return render(request, 'administrator/update_listing.html', context)
 
 
 def admin_delete_listing(request, pk):
-    item = Listing.objects.get(id=pk)
+    item = Listing.objects.get_or_404(id=pk)
 
     if not item:
         messages.warning(request, 'No Such Listing')
@@ -411,8 +475,10 @@ def admin_delete_listing(request, pk):
             item = Listing.objects.get(id=pk)
             item.delete()
             messages.success(request, "Listing Deleted Successfully")
+            return redirect('admin_list_listing')
         else:
             messages.warning(request, 'No Such Listing')
+            return redirect('admin_list_listing')
     context = {"item": item}
     return render(request, 'administrator/delete_listing.html', context)
 
@@ -458,6 +524,7 @@ def admin_create_location(request):
         if form.is_valid:
             form.save()
             messages.success(request, "Service Location Added Successfully")
+            return redirect('admin_list_location')
 
     context = {"form": form}
     return render(request, 'administrator/create_location.html', context)
@@ -472,22 +539,26 @@ def admin_update_location(request, pk):
         if form.is_valid:
             location = form.save()
             messages.success(request, "Changes To Service Location Successful")
+            return redirect('admin_list_location')
 
     context = {"form": form, 'sl': location}
     return render(request, 'administrator/update_location.html', context)
 
 
 def admin_delete_location(request, pk):
-    item = DeliveryLocation.objects.get(id=pk)
+    item = DeliveryLocation.objects.get_or_404(id=pk)
     if not item:
         messages.warning(request, 'No Such Location')
+        return redirect('admin_list_location')
     if request.method == 'POST':
         if item:
             item = DeliveryLocation.objects.get(id=pk)
             item.delete()
             messages.success(request, "Listing Deleted Successfully")
+            return redirect('admin_list_location')
         else:
             messages.warning(request, 'No Such Location')
+            return redirect('admin_list_location')
     context = {"item": item}
     return render(request, 'administrator/delete_location.html', context)
 
