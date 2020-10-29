@@ -127,6 +127,7 @@ def logOut(request):
     if request.user.is_authenticated:
         logout(request)
         messages.success(request, f'{request.user} Logged Out!')
-        return HttpResponse(f"{user} Logged Out Successfully!")
+        return redirect('login')
+
     else:
         return HttpResponse("You need to sign in first to log out!")

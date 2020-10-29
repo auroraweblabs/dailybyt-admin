@@ -519,13 +519,13 @@ def admin_detail_listing(request, pk):
 def admin_list_payment(request):
     payments = Payment.objects.all()
     context = {'payments': payments}
-    return render(request, 'administrator/list_payment.html', context)
+    return render(request, 'administrator/list_payments.html', context)
 
 
 def admin_detail_payment(request, pk):
     payment = Payment.objects.get(id=pk)
     context = {'payment': payment}
-    return render(request, 'administrator/detail_payment.html', context)
+    return render(request, 'administrator/detail_payments.html', context)
 
 
 # ADmin Order 
