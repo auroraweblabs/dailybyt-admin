@@ -24,7 +24,7 @@
             <tbody class="text-center">
                 {% for order in orders %}
                 <tr>
-                    <td><h5>{{order.id}}</h5></td>
+                    <td><h5>{{order.customer}}</h5></td>
                     <td><h5><a href=" {% url 'admin_detail_order' order.id %} ">Details Of Order {{order}}</a></h5></td>
                     <td><h5>{{order.customer.user.id}}</h5></td>
                     <td><h5>{{order.customer.user.name}}</h5></td>

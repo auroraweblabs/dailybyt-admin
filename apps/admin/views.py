@@ -567,7 +567,7 @@ def admin_create_location(request):
             return redirect('admin_list_location')
 
     context = {"form": form}
-    return render(request, 'administrator/create_location.html', context)
+    return render(request, 'administrator/create_servicelocation.html', context)
 
 
 def admin_update_location(request, pk):
@@ -582,7 +582,7 @@ def admin_update_location(request, pk):
             return redirect('admin_list_location')
 
     context = {"form": form, 'sl': location}
-    return render(request, 'administrator/update_location.html', context)
+    return render(request, 'administrator/edit_servicelocation.html', context)
 
 
 def admin_delete_location(request, pk):
@@ -600,16 +600,16 @@ def admin_delete_location(request, pk):
             messages.warning(request, 'No Such Location')
             return redirect('admin_list_location')
     context = {"item": item}
-    return render(request, 'administrator/delete_location.html', context)
+    return render(request, 'administrator/delete_servicelocation.html', context)
 
 
 def admin_list_location(request):
     locations = DeliveryLocation.objects.all()
     context = {'locations': locations}
-    return render(request, 'administrator/list_location.html', context)
+    return render(request, 'administrator/list_servicelocation.html', context)
 
 
 def admin_detail_location(request, pk):
     location = DeliveryLocation.objects.get(pk)
     context = {'location': location}
-    return render(request, 'administrator/detail_location.html', context)
+    return render(request, 'administrator/detail_servicelocation.html', context)
