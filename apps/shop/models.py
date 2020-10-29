@@ -153,7 +153,7 @@ class Listing(models.Model):
         return Listing.objects.filter(price < price)
 
     def __str__(self):
-        return self.vendor
+        return self.vendor.user.first_name
 
 class OrderToday(models.Manager):
     def get_queryset(self):
@@ -250,6 +250,25 @@ class OrderItem(models.Model):
         total = self.product.price * self.quantity
         return total
 
+class SaleReportToday(models.Manager):
+    def get_queryset(self):
+        today = date.today()
+        return super(SaleReportToday, self).get_queryset().filter(added_on__gte=today)
+    
+class SaleReportYesterday(models.Manager):
+    def get_queryset(self):
+        today = date.today()
+        yesterday = (today - timedelta(1))
+        return super(SaleReportYesterday, self).get_queryset().filter(added_on__range=(yesterday,today))
+
+
+class SaleReportThisWeek(models.Manager):
+    def get_queryset(self):
+        added_on = models.DateTimeField(default=timezone.now)
+        today = date.today()
+        week = (today - timedelta(7))
+        return super(SaleReportThisWeek, self).get_queryset().filter(added_on__gt=week)
+
 
 class SaleReport(models.Model):
     vendor = models.ForeignKey("seller.Vendor", on_delete=models.DO_NOTHING)
@@ -258,8 +277,13 @@ class SaleReport(models.Model):
     value = models.DecimalField(max_digits=10, default=0, decimal_places=2)
     commission = models.DecimalField(max_digits=10, default=0,
                                      decimal_places=2)
-
-
+    added_on = models.DateTimeField(default=timezone.now)
+    
+    objects= models.Manager()
+    today = SaleReportToday()
+    yesterday = SaleReportYesterday()
+    week = SaleReportThisWeek()
+                                
 class Payment(models.Model):
 
     choices = (

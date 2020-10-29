@@ -1,9 +1,9 @@
 from apps.customer.models import Customer
 from apps.shop.forms import CategoryForm, ListingForm, SubCategoryForm
 from apps.shop.forms import ProductForm, UserReviewForm, TagForm
-from apps.shop.models import Category, Order, Payment, SubCategory, Tag, UserReview
+from apps.shop.models import Category, Order, Payment, SaleReport, SaleReportToday, SaleReportYesterday, SubCategory, Tag, UserReview
 from apps.shop.models import Product, Listing
-from apps.service.models import DeliveryLocation
+from apps.service.models import DeliveryLocation, SupportMessage
 from apps.service.forms import DeliveryLocationForm
 from django.shortcuts import redirect, render
 from apps.accounts.models import User
@@ -30,8 +30,14 @@ def admin_home(request):
     vendor_yesterday = Vendor.yesterday.all().count()
     vendor_week = Vendor.week.all().count()
     customer_today = Customer.today.all().count()
-    customer_yesterday = Customer.today.all().count()
-    customer_week = Customer.today.all().count()
+    customer_yesterday = Customer.yesterday.all().count()
+    customer_week = Customer.week.all().count()
+    order_today = Order.today.all().count()
+    order_yesterday = Order.yesterday.all().count()
+    order_week = Order.week.all().count()
+    sale_today = SaleReport.today.all().count()
+    sale_yesterday = SaleReport.yesterday.all().count()
+    sale_week = SaleReport.week.all().count()
 
     context = {
         'username': username,
@@ -49,6 +55,12 @@ def admin_home(request):
         'customer_today':customer_today,
         'customer_yesterday':customer_yesterday,
         'customer_week':customer_week,
+        'order_today':order_today,
+        'order_yesterday':order_yesterday,
+        'order_week':order_week,
+        'sale_today':sale_today,
+        'sale_yesterday':sale_yesterday,
+        'sale_week':sale_week,
         }
     return render(request, 'administrator/home.html', context)
 
@@ -495,8 +507,11 @@ def admin_detail_listing(request, pk):
     vendor = Vendor.objects.get(id=listing.vendor)
     product = Product.objects.get(id=listing.product)
 
-    context = {'listing': listing, 'vendor': vendor,
-               'product': product}
+    context = {
+        'listing': listing,
+        'vendor': vendor,
+        'product': product
+        }
     return render(request, 'administrator/detail_listing.html', context)
 # Admin payment Management
 
@@ -511,6 +526,31 @@ def admin_detail_payment(request, pk):
     payment = Payment.objects.get(id=pk)
     context = {'payment': payment}
     return render(request, 'administrator/detail_payment.html', context)
+
+
+# ADmin Order 
+def admin_list_order(request):
+    order = Order.objects.all()
+    context = {'order': order}
+    return render(request, 'administrator/list_order.html', context)
+
+
+def admin_detail_order(request, pk):
+    order = Order.objects.get(id=pk)
+    context = {'order': order}
+    return render(request, 'administrator/detail_order.html', context)
+
+# ADmin support
+def admin_list_support(request):
+    support = SupportMessage.objects.all()
+    context = {'support': support}
+    return render(request, 'administrator/list_support.html', context)
+
+
+def admin_detail_support(request, pk):
+    support = SupportMessage.objects.get(id=pk)
+    context = {'support': support}
+    return render(request, 'administrator/detail_support.html', context)
 
 
 # Admin location Management

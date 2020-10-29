@@ -196,7 +196,7 @@
     });
     var ctx = document.getElementById('SalesChart').getContext('2d');
     var SalesChart = new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: [ 'This Week', 'Yesterday', 'Today'],
             datasets: [{
@@ -229,12 +229,12 @@
     });
     var ctx = document.getElementById('OrderChart').getContext('2d');
     var OrderChart = new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: [ 'This Week', 'Yesterday', 'Today'],
             datasets: [{
                 label: 'Orders',
-                data: [5, 2, 3],
+                data: ['{{order_week}}','{{order_yesterday}}','{{order_today}}'],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

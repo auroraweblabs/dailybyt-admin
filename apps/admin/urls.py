@@ -1,4 +1,4 @@
-from apps.admin.views import admin_create_Tag, admin_create_category
+from apps.admin.views import admin_create_Tag, admin_create_category, admin_detail_order, admin_detail_support, admin_list_order, admin_list_support
 from apps.admin.views import admin_update_vendor, admin_home
 from apps.admin.views import admin_delete_category, admin_delete_vendor
 from apps.admin.views import admin_detail_category
@@ -167,6 +167,15 @@ urlpatterns = [
          admin_detail_listing,
          name="admin_detail_listing"),
 
+     # Order Paths
+    path('admin_list_order/',
+         admin_list_order,
+         name="admin_list_order"),
+
+    path('admin_detail_order/<int:pk>',
+         admin_detail_order,
+         name="admin_detail_order"),    
+
     # Payment Paths
     path('admin_list_payment/',
          admin_list_payment,
@@ -176,6 +185,15 @@ urlpatterns = [
          admin_detail_payment,
          name="admin_detail_payment"),
 
+     #Support Paths
+      path('admin_list_support/',
+         admin_list_support,
+         name="admin_list_support"),
+
+    path('admin_detail_support/<int:pk>',
+         admin_detail_support,
+         name="admin_detail_support"),    
+ 
     # Product Paths
 
     path('admin_create_location/',
